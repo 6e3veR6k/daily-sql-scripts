@@ -1,0 +1,33 @@
+﻿CREATE TABLE [Stage].[CommissarExaminations] (
+  [CommissarExaminationId] [int] NOT NULL,
+  [CommissarExaminationGid] [uniqueidentifier] NOT NULL ROWGUIDCOL,
+  [CaseGID] [uniqueidentifier] NOT NULL,
+  [Number] [nvarchar](50) NOT NULL,
+  [Date] [datetime] NULL,
+  [PostAddressGID] [uniqueidentifier] NULL,
+  [Address] [nvarchar](255) NULL,
+  [MobileCommissarGID] [uniqueidentifier] NULL,
+  [ActualDate] [datetime] NULL,
+  [IsFinished] [bit] NULL,
+  [Notes] [nvarchar](1024) NULL,
+  [BackToDirectionDate] [datetime] NULL,
+  [AttachedToCaseDate] [datetime] NULL,
+  [SentToAccountsCenterDate] [datetime] NULL,
+  [AuthorGID] [uniqueidentifier] NULL,
+  [TypeGID] [uniqueidentifier] NOT NULL,
+  [StatusGID] [uniqueidentifier] NOT NULL,
+  [ActualPostAddressGID] [uniqueidentifier] NULL,
+  [ActualAddress] [nvarchar](255) NULL,
+  [ObjectName] [nvarchar](255) NOT NULL,
+  [ObjectGID] [uniqueidentifier] NULL,
+  [SecurityTypeGID] [uniqueidentifier] NOT NULL,
+  [ServiceStationGID] [uniqueidentifier] NULL,
+  [BranchGID] [uniqueidentifier] NULL,
+  [Deleted] [bit] NOT NULL,
+  [ExpertAppraiserGID] [uniqueidentifier] NULL,
+  [CreateDate] [datetime] NOT NULL,
+  CONSTRAINT [PK_CommissarExaminations_CommissarExaminationGid] PRIMARY KEY NONCLUSTERED ([CommissarExaminationGid]),
+  CONSTRAINT [KEY_CommissarExaminations_CommissarExaminationId] UNIQUE CLUSTERED ([CommissarExaminationId])
+)
+ON [PRIMARY]
+GO

@@ -1,0 +1,3 @@
+﻿CREATE USER [dbo]
+  FOR LOGIN [ORANTA\jAdmin]
+GO

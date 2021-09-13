@@ -78,6 +78,7 @@ SELECT
   Cl.OwnerPostAddressGID, -- todo: change to Id
   Cl.IsVipClient,
   Cl.InsuranceSum,
+
   P.ApprovalOfInsuranceIndemnity,
   P.Franchise,
   P.InsuredDamageCompensated,
@@ -105,7 +106,7 @@ SELECT
   P.OppositeSidePolisBeginingDate,
   P.OppositeSidePolisEndingDate,
   P.AttorneyNumber
-INTO #StageClaims
+INTO tempClaims
 FROM #StageClaimsT AS Cl
 LEFT JOIN (
   SELECT
@@ -147,6 +148,82 @@ LEFT JOIN (
 
 DROP TABLE #StageClaimsT
 
+
+
+/*************************************************************************************
+HUB Claims
+*************************************************************************************/
+
+
+SELECT
+  Cl.HubClaimId,
+  Cl.LoadDateTime,
+  NEXT VALUE FOR Satellite.SequenceClaimsParametersId AS ClaimsParametersId,
+  P.ApprovalOfInsuranceIndemnity,
+  P.Franchise,
+  P.InsuredDamageCompensated,
+  P.ListOfErrorsORANTAContract,
+  P.IsViolationDeadline,
+  P.DemageType,
+  P.HasORANTAContractErrors,
+  P.VictimNotificationDate,
+  P.ClaimDateFilledAutomatically,
+  P.HasOppositeSideContractErrors,
+  P.IsInsuredAMinor,
+  P.Calls,
+  P.VictimsRepresentative,
+  P.CustomerStatus,
+  P.OppositeSidePolisNumber,
+  P.OppositeSideFranchise,
+  P.ListOfErrorsOppositeSideContract,
+  P.DemageTypeValue,
+  P.AttorneyIssueDate,
+  P.OppositeSidePolisSer,
+  P.OppositeSideInsuranceCompany,
+  P.VictimsRepresentativeCall,
+  P.InsuredNotificationDate,
+  P.OrantaInsuredCivilLiability,
+  P.OppositeSidePolisBeginingDate,
+  P.OppositeSidePolisEndingDate,
+  P.AttorneyNumber
+FROM Hub.Claims AS Cl
+LEFT JOIN (
+  SELECT
+    P.ClaimGID,
+    MAX(IIF(DP.Name = 'Погодження страхового відшкодування', V.Value, NULL)) AS ApprovalOfInsuranceIndemnity,
+    MAX(IIF(DP.Name = 'Франшиза', CAST(P.ParameterValue AS decimal(18,2)), NULL)) AS Franchise,
+    MAX(IIF(DP.Name = 'Страхувальником шкоду відшкодовано (проведено взаєморозрахунки)', P.ParameterValue, NULL)) AS InsuredDamageCompensated,
+    STRING_AGG(IIF(DP.Name = 'Перелік помилок договору ОРАНТА', V.Value, NULL), ',') AS ListOfErrorsORANTAContract,
+    MAX(IIF(DP.Name = 'Внести Заяву з порушенням термінів', P.ParameterValue, NULL)) AS IsViolationDeadline,
+    MAX(IIF(DP.Name = 'Тип шкоди', V.Value, NULL)) AS DemageType,
+    MAX(IIF(DP.Name = 'Наявність помилок в договорі ОРАНТИ', P.ParameterValue, NULL)) AS HasORANTAContractErrors,
+    MAX(IIF(DP.Name = 'Дата повідомлення потерпілого', CONVERT(DATETIME, P.ParameterValue), NULL)) AS VictimNotificationDate,
+    MAX(IIF(DP.Name = 'Даты заяви (вимоги) заповнена автоматично', P.ParameterValue, NULL)) AS ClaimDateFilledAutomatically,
+    MAX(IIF(DP.Name = 'Наявність помилок в полісі 2-ї сторони', P.ParameterValue, NULL)) AS HasOppositeSideContractErrors,
+    MAX(IIF(DP.Name = 'Застраховано особа - неповнолітня', P.ParameterValue, NULL)) AS IsInsuredAMinor,
+    MAX(IIF(DP.Name = 'Хто звертається', V.Value, NULL)) AS Calls,
+    MAX(IIF(DP.Name = 'Звертається представник потерпілого', P.ParameterValue, NULL)) AS VictimsRepresentative,
+    MAX(IIF(DP.Name = 'Статус клієнта', V.Value, NULL)) AS CustomerStatus,
+    MAX(IIF(DP.Name = 'Номер полісу  (сторона 2)', P.ParameterValue, NULL)) AS OppositeSidePolisNumber,
+    MAX(IIF(DP.Name = 'Франшиза  (сторона 2)', CAST(P.ParameterValue AS decimal(18,2)), NULL)) AS OppositeSideFranchise,
+    STRING_AGG(IIF(DP.Name = 'Помилки полісу 2-ї сторони/ невідповідність ЦБД МТСБУ', V.Value, NULL), ',') AS ListOfErrorsOppositeSideContract,
+    MAX(IIF(DP.Name = 'Тип пошкоджень', V.Value, NULL)) AS DemageTypeValue,
+    MAX(IIF(DP.Name = 'Дата довіреності представника', CONVERT(DATETIME, P.ParameterValue), NULL)) AS AttorneyIssueDate,
+    MAX(IIF(DP.Name = 'Серія полісу  (сторона 2)', P.ParameterValue, NULL)) AS OppositeSidePolisSer,
+    MAX(IIF(DP.Name = 'СК другої сторони', V.Value, NULL)) AS OppositeSideInsuranceCompany,
+    MAX(IIF(DP.Name = 'Звертається представник', P.ParameterValue, NULL)) AS VictimsRepresentativeCall,
+    MAX(IIF(DP.Name = 'Дата повідомлення Страхувальника ОРАНТА', CONVERT(DATETIME, P.ParameterValue), NULL)) AS InsuredNotificationDate,
+    MAX(IIF(DP.Name = 'Ознаки ЦВ відповід. Страх. ОРАНТИ', V.Value, NULL)) AS OrantaInsuredCivilLiability,
+    MAX(IIF(DP.Name = 'Початок дії полісу  (сторона 2)', CONVERT(DATETIME, P.ParameterValue), NULL)) AS OppositeSidePolisBeginingDate,
+    MAX(IIF(DP.Name = 'Кінець дії полісу  (сторона 2)', CONVERT(DATETIME, P.ParameterValue), NULL)) AS OppositeSidePolisEndingDate,
+    MAX(IIF(DP.Name = 'Серія та номер довіреності представника', P.ParameterValue, NULL)) AS AttorneyNumber
+  FROM Stage.ClaimToParameterValues AS P
+  INNER JOIN Dimension.DocumentParameters AS DP ON DP.DocumentParameterGID = P.ParameterGID
+  LEFT JOIN Dimension.DocumentParameterValues AS V ON V.DocumentParameterValueGID = TRY_CONVERT(uniqueidentifier, P.ParameterValue)
+  WHERE P.Deleted = 0
+  GROUP BY P.ClaimGid
+) AS P
+  ON P.ClaimGid = Cl.SourceClaimGid
 
 
 /*************************************************************************************

@@ -1,0 +1,37 @@
+﻿CREATE TABLE [Satellite].[ClaimsParameters] (
+  [ClaimsParametersId] [int] NOT NULL DEFAULT (NEXT VALUE FOR [Satellite].[SequenceClaimsParametersId]),
+  [HubClaimId] [int] NOT NULL,
+  [LoadDateTime] [datetime] NOT NULL,
+  [ApprovalOfInsuranceIndemnity] [nvarchar](4000) NULL,
+  [Franchise] [decimal](18, 2) NULL,
+  [InsuredDamageCompensated] [nvarchar](max) NULL,
+  [ListOfErrorsORANTAContract] [nvarchar](4000) NULL,
+  [IsViolationDeadline] [nvarchar](max) NULL,
+  [DemageType] [nvarchar](4000) NULL,
+  [HasORANTAContractErrors] [nvarchar](max) NULL,
+  [VictimNotificationDate] [datetime] NULL,
+  [ClaimDateFilledAutomatically] [nvarchar](max) NULL,
+  [HasOppositeSideContractErrors] [nvarchar](max) NULL,
+  [IsInsuredAMinor] [nvarchar](max) NULL,
+  [Calls] [nvarchar](4000) NULL,
+  [VictimsRepresentative] [nvarchar](max) NULL,
+  [CustomerStatus] [nvarchar](4000) NULL,
+  [OppositeSidePolisNumber] [nvarchar](max) NULL,
+  [OppositeSideFranchise] [decimal](18, 2) NULL,
+  [ListOfErrorsOppositeSideContract] [nvarchar](4000) NULL,
+  [DemageTypeValue] [nvarchar](4000) NULL,
+  [AttorneyIssueDate] [datetime] NULL,
+  [OppositeSidePolisSer] [nvarchar](max) NULL,
+  [OppositeSideInsuranceCompany] [nvarchar](4000) NULL,
+  [VictimsRepresentativeCall] [nvarchar](max) NULL,
+  [InsuredNotificationDate] [datetime] NULL,
+  [OrantaInsuredCivilLiability] [nvarchar](4000) NULL,
+  [OppositeSidePolisBeginingDate] [datetime] NULL,
+  [OppositeSidePolisEndingDate] [datetime] NULL,
+  [AttorneyNumber] [nvarchar](max) NULL,
+  [RecordSource] [nvarchar](50) NOT NULL,
+  CONSTRAINT [PK_ClaimsParameters_ClaimsParametersId] PRIMARY KEY CLUSTERED ([ClaimsParametersId])
+)
+ON [PRIMARY]
+TEXTIMAGE_ON [PRIMARY]
+GO

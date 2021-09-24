@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [Warehouse].[HubCases] (
-  [HubCaseId] [bigint] IDENTITY,
+  [HubCaseId] [bigint] NOT NULL,
   [CaseGid] [uniqueidentifier] NOT NULL,
   [CaseNumber] [nvarchar](255) NOT NULL,
   [SourceRecordId] [int] NOT NULL,

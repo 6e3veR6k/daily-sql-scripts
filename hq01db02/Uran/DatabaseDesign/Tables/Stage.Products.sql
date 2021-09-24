@@ -13,6 +13,7 @@
   [BranchGID] [uniqueidentifier] NULL,
   [ExternalGID] [uniqueidentifier] NULL,
   [InsuredGID] [uniqueidentifier] NULL,
+  [HimaliaProductId] [bigint] NULL,
   CONSTRAINT [PK_Products_ProductGid] PRIMARY KEY NONCLUSTERED ([ProductGid]),
   CONSTRAINT [KEY_Products_ProductId] UNIQUE CLUSTERED ([ProductId])
 )

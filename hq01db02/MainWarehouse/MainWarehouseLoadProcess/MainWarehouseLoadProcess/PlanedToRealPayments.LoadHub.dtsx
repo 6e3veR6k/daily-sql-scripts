@@ -1,0 +1,777 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/29/2021 1:07:13 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{0A34D299-AE9C-4623-B28A-DB9119015620}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="PlanedToRealPayments LoadHub"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{C1FA2096-12BE-4763-836E-199F0EAF3BA0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadPlanedToRealPaymentsHub"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{2CE7D1B5-0F11-456A-8B81-E9CDDEC62440}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadPlanedToRealPaymentsHub"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetStagePlanedToRealPayments"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[PlanedToRealPayments]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[GID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[GID]"
+                      name="GID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[PlanedPaymentGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[PlanedPaymentGID]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[PlanedPaymentGID]"
+                      name="PlanedPaymentGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[RealPaymentGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentGID]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[RealPaymentGID]"
+                      name="RealPaymentGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      dataType="guid"
+                      name="GID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[PlanedPaymentGID]"
+                      dataType="guid"
+                      name="PlanedPaymentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentGID]"
+                      dataType="guid"
+                      name="RealPaymentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      dataType="numeric"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i8"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      name="GID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[PlanedPaymentGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[PlanedPaymentGID]"
+                      name="PlanedPaymentGID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[RealPaymentGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[RealPaymentGID]"
+                      name="RealPaymentGID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      dataType="numeric"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      name="SourceRecordId" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LoadHubPlanedToRealPayments"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Hub].[PlanedToRealPayments]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="LoadDateTime"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[HubPlanedToRealPaymentId]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      externalMetadataColumnId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[PlanedToRealPaymentGid]"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[GID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[HubPlanedToRealPaymentId]"
+                      dataType="i8"
+                      name="HubPlanedToRealPaymentId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[PlanedToRealPaymentGid]"
+                      dataType="guid"
+                      name="PlanedToRealPaymentGid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadPlanedToRealPaymentsHub\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Hub].[PlanedToRealPayments]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Hub].[PlanedToRealPayments]) [refTable]
+where [refTable].[HubPlanedToRealPaymentId] = ? and [refTable].[PlanedToRealPaymentGid] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="HubPlanedToRealPaymentId" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PlanedToRealPaymentGid" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SourceRecordId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LoadDateTime" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Id]};#{Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[GID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">HubPlanedToRealPaymentId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output].Columns[GID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PlanedToRealPaymentGid</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[HubPlanedToRealPaymentId]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[HubPlanedToRealPaymentId]"
+                      name="HubPlanedToRealPaymentId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">HubPlanedToRealPaymentId</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[PlanedToRealPaymentGid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[PlanedToRealPaymentGid]"
+                      name="PlanedToRealPaymentGid"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">PlanedToRealPaymentGid</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadPlanedToRealPaymentsHub.Paths[Lookup No Match Output]"
+              endId="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\LoadPlanedToRealPaymentsHub\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\LoadPlanedToRealPaymentsHub.Paths[OLE DB Source Output]"
+              endId="Package\LoadPlanedToRealPaymentsHub\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="230,42"
+          Id="Package\LoadPlanedToRealPaymentsHub"
+          TopLeft="65,63" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadPlanedToRealPaymentsHub">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments"
+          TopLeft="5.50000000000001,5.5" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments"
+          TopLeft="6.00000000000003,209.5" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\LoadPlanedToRealPaymentsHub\Lookup"
+          TopLeft="64.5,107.5" />
+        <EdgeLayout
+          Id="Package\LoadPlanedToRealPaymentsHub.Paths[OLE DB Source Output]"
+          TopLeft="121,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadPlanedToRealPaymentsHub.Paths[Lookup No Match Output]"
+          TopLeft="121,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,20.4453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedToRealPaymentsHub\GetStagePlanedToRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedToRealPaymentsHub\LoadHubPlanedToRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedToRealPaymentsHub\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[PlanedToRealPayments]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

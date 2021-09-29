@@ -1,0 +1,891 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/28/2021 4:28:17 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{AF5CDAA7-30F3-49FC-9392-6D41745BE8AF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="PaymentPeriods LoadHub"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{9791DA6C-0703-40EB-A629-5CBB9C65BFDB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadPlanedPaymentsHub"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{B97C286C-BE0C-43C6-8719-5B165DB9679D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadPlanedPaymentsHub"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetStagePaymentPeriods"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[PaymentPeriods]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[GID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[GID]"
+                      name="GID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[ProductGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[ProductGID]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[ProductGID]"
+                      name="ProductGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[PlanDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[PlanDate]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[PlanDate]"
+                      name="PlanDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[DueDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[DueDate]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[DueDate]"
+                      name="DueDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[MFO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[MFO]"
+                      length="6"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[MFO]"
+                      name="MFO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[TicketNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[TicketNumber]"
+                      length="50"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[TicketNumber]"
+                      name="TicketNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Date]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Date]"
+                      name="Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Sum]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Sum]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Sum]"
+                      name="Sum"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[StartDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[StartDate]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[StartDate]"
+                      name="StartDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[IsAdditional]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[IsAdditional]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[IsAdditional]"
+                      name="IsAdditional"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      dataType="guid"
+                      name="GID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[ProductGID]"
+                      dataType="guid"
+                      name="ProductGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[PlanDate]"
+                      dataType="dbTimeStamp"
+                      name="PlanDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[DueDate]"
+                      dataType="dbTimeStamp"
+                      name="DueDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[MFO]"
+                      dataType="wstr"
+                      length="6"
+                      name="MFO" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[TicketNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="TicketNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Date]"
+                      dataType="dbTimeStamp"
+                      name="Date" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[Sum]"
+                      dataType="numeric"
+                      name="Sum"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[StartDate]"
+                      dataType="dbTimeStamp"
+                      name="StartDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[IsAdditional]"
+                      dataType="bool"
+                      name="IsAdditional" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i8"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      name="GID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ProductGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ProductGID]"
+                      name="ProductGID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[PlanDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[PlanDate]"
+                      name="PlanDate" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[DueDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[DueDate]"
+                      name="DueDate" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[MFO]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[MFO]"
+                      name="MFO" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[TicketNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[TicketNumber]"
+                      name="TicketNumber" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Date]"
+                      name="Date" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Sum]"
+                      dataType="numeric"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[Sum]"
+                      name="Sum"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[StartDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[StartDate]"
+                      name="StartDate" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[IsAdditional]"
+                      dataType="bool"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[IsAdditional]"
+                      name="IsAdditional" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      name="SourceRecordId" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LoadHubPaymentPeriods"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Hub].[PaymentPeriods]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="LoadDateTime"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[HubPaymentPeriodId]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      externalMetadataColumnId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[PaymentPeriodGid]"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[GID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[HubPaymentPeriodId]"
+                      dataType="i8"
+                      name="HubPaymentPeriodId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[PaymentPeriodGid]"
+                      dataType="guid"
+                      name="PaymentPeriodGid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadPlanedPaymentsHub\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Hub].[PaymentPeriods]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Hub].[PaymentPeriods]) [refTable]
+where [refTable].[HubPaymentPeriodId] = ? and [refTable].[PaymentPeriodGid] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="HubPaymentPeriodId" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PaymentPeriodGid" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SourceRecordId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LoadDateTime" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Id]};#{Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[GID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadPlanedPaymentsHub\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">HubPaymentPeriodId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      lineageId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output].Columns[GID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PaymentPeriodGid</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[HubPaymentPeriodId]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[HubPaymentPeriodId]"
+                      name="HubPaymentPeriodId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">HubPaymentPeriodId</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[PaymentPeriodGid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Match Output].Columns[PaymentPeriodGid]"
+                      name="PaymentPeriodGid"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">PaymentPeriodGid</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadPlanedPaymentsHub.Paths[Lookup No Match Output]"
+              endId="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\LoadPlanedPaymentsHub\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\LoadPlanedPaymentsHub.Paths[OLE DB Source Output]"
+              endId="Package\LoadPlanedPaymentsHub\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\LoadPlanedPaymentsHub"
+          TopLeft="120,65" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadPlanedPaymentsHub">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="196,42"
+          Id="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods"
+          TopLeft="134,317" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\LoadPlanedPaymentsHub\Lookup"
+          TopLeft="179,204" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods"
+          TopLeft="137,87" />
+        <EdgeLayout
+          Id="Package\LoadPlanedPaymentsHub.Paths[OLE DB Source Output]"
+          TopLeft="235.5,129">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadPlanedPaymentsHub.Paths[Lookup No Match Output]"
+          TopLeft="233.75,246">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71"
+              Start="0,0"
+              End="0,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,25.9453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedPaymentsHub\LoadHubPaymentPeriods">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedPaymentsHub\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[PaymentPeriods]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadPlanedPaymentsHub\GetStagePaymentPeriods">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

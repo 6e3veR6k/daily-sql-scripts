@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="HQ00-5028-E8658"
   DTS:CreatorName="ORANTA\bezvershuk_do"
-  DTS:DTSID="{9196EC5B-1401-40D1-8B98-BD701071A3FB}"
+  DTS:DTSID="{B18DFA12-5DAB-47C2-92AA-0E61B4251B72}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.166"
   DTS:LocaleID="1049"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="Products LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="8"
-  DTS:VersionGUID="{87D7F98D-C577-4D07-9490-774B91B65D2B}">
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{EFB77A9D-0ECF-4B75-B970-1732C3DC4E43}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>

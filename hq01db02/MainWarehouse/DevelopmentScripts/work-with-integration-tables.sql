@@ -59,3 +59,17 @@ SELECT hub.id, @load_dts, source.cust_name, @record_src
 FROM source_customer  AS source
 INNER JOIN customer_hub AS hub ON cust.customer#= source.customer#
 INNER JOIN customer_sat AS sat ON sat.id= hub.id# AND sat “Is most recent” AND sat.name <> source.name 
+
+
+
+
+--
+-- Создать таблицу [Hub].[RealPayments]
+--
+CREATE TABLE Hub.RealPayments (
+  HubRealPaymentId bigint IDENTITY,
+  RealPaymentGid uniqueidentifier NOT NULL,
+  SourceRecordId int NOT NULL,
+  LoadDateTime datetime2 NOT NULL,
+  CONSTRAINT PK_RealPayments_HubRealPaymentId PRIMARY KEY CLUSTERED (HubRealPaymentId)
+)

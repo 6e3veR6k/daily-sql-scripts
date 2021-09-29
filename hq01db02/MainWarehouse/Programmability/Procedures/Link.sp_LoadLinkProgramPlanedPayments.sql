@@ -1,0 +1,39 @@
+﻿SET QUOTED_IDENTIFIER, ANSI_NULLS ON
+GO
+
+-- =============================================
+-- Author:		bezvershuk_do
+-- Create date: 29.09.2021
+-- Description:	
+-- =============================================
+CREATE PROCEDURE [Link].[sp_LoadLinkProgramPlanedPayments] 
+	@SourceRecordId int = 1, 
+	@LoadDateTime datetime2 = NULL
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	IF @LoadDateTime IS NULL SET @LoadDateTime = CURRENT_TIMESTAMP;
+
+
+	INSERT INTO [Link].[ProgramPlanedPayments]
+				([LinkProgramPlanedPaymentId]
+				,[HubProgramId]
+				,[HubPlanedPaymentId]
+				,[SourceRecordId]
+				,[LoadDateTime])
+	SELECT
+		NEXT VALUE FOR [Link].[sq_ProgramPlanedPayments] AS LinkProgramPlanedPaymentId,
+		HPg.HubProgramId AS HubProgramId,
+		HPP.HubPlanedPaymentId AS HubPlanedPaymentId,
+		@SourceRecordId AS SourceRecordId,
+		@LoadDateTime
+	FROM Stage.PlanedPayments AS PP
+	INNER JOIN Hub.Programs AS HPg
+		ON HPg.ProgramGid = PP.ProgramGID
+	INNER JOIN Hub.PlanedPayments AS HPP
+		ON HPP.HubPlanedPaymentId = PP.id
+	WHERE NOT EXISTS (SELECT 1 FROM Link.ProgramPlanedPayments AS F WHERE F.HubPlanedPaymentId = HPP.HubPlanedPaymentId AND F.HubProgramId = HPg.HubProgramId)
+
+END
+GO

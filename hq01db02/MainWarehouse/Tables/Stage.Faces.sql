@@ -38,6 +38,8 @@
   [IsSanction] [bit] NULL,
   [IsPEP] [bit] NULL,
   [RiskGroupID] [bigint] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL
 )

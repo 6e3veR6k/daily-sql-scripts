@@ -24,16 +24,18 @@ BEGIN
 				,[LoadDateTime])
 	SELECT
 		NEXT VALUE FOR [Link].[sq_PlanedPaymentPeriods] AS LinkPlanedPaymentPeriodId,
-		HPP.HubPaymentPeriodId AS HubPaymentPeriodId,
-		HP.HubPlanedPaymentId AS HubPlanedPaymentId,
+		sh.HubPaymentPeriodId AS HubPaymentPeriodId,
+		fh.HubPlanedPaymentId AS HubPlanedPaymentId,
 		@SourceRecordId AS SourceRecordId,
 		@LoadDateTime
-	FROM Stage.PlanedPayments AS PP
-	INNER JOIN Hub.PlanedPayments AS HP
-		ON HP.HubPlanedPaymentId = PP.id
-	INNER JOIN Hub.PaymentPeriods AS HPP
-		ON HPP.PaymentPeriodGid = PP.PaymentPeriodGID
-	WHERE NOT EXISTS (SELECT 1 FROM Link.PlanedPaymentPeriods AS F WHERE F.HubPlanedPaymentId = HP.HubPlanedPaymentId AND F.HubPaymentPeriodId = HPP.HubPaymentPeriodId)
+	FROM Stage.PlanedPayments AS src
+	INNER JOIN Hub.PlanedPayments AS fh ON fh.HubPlanedPaymentId = src.id
+	INNER JOIN Hub.PaymentPeriods AS sh ON sh.PaymentPeriodGid = src.PaymentPeriodGID
+	WHERE NOT EXISTS 
+		(SELECT 1 FROM Link.PlanedPaymentPeriods AS trg 
+		WHERE 
+			trg.HubPlanedPaymentId = fh.HubPlanedPaymentId AND 
+			trg.HubPaymentPeriodId = sh.HubPaymentPeriodId)
 
 END
 GO

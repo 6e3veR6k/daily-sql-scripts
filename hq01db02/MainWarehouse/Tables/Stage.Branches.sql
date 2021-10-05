@@ -7,7 +7,9 @@
   [ParentGID] [uniqueidentifier] NULL,
   [ControlBlanks] [bit] NULL,
   [AuthorGID] [uniqueidentifier] NULL,
-  [BranchCodeLen] [int] NOT NULL,
+  [BranchCodeLen] [int] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_Branches_Id] PRIMARY KEY CLUSTERED ([Id])

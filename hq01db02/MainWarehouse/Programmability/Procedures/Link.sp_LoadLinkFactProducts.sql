@@ -26,18 +26,19 @@ BEGIN
            ,[LoadDateTime])
 	SELECT
 		NEXT VALUE FOR Link.sq_FactProducts AS LinkFactProductId,
-		HP.HubProductId,
-		HPg.HubProgramId,
+		fh.HubProductId,
+		sh.HubProgramId,
 		@SourceRecordId AS SourceRecordId,
 		@LoadDateTime
-	FROM Stage.Programs AS Pg
-	LEFT JOIN Hub.Programs AS HPg ON HPg.HubProgramId = Pg.Id
-	LEFT JOIN Hub.Products AS HP ON HP.ProductGid = Pg.ProductGID
+	FROM Stage.Programs AS src
+	LEFT JOIN Hub.Products AS fh ON fh.ProductGid = src.ProductGID
+	LEFT JOIN Hub.Programs AS sh ON sh.HubProgramId = src.Id
 	WHERE NOT EXISTS (
 		SELECT 1
-		FROM Link.FactProducts AS FP
-		WHERE FP.HubProductId = HP.HubProductId
-			AND FP.HubProgramId = HPg.HubProgramId
+		FROM Link.FactProducts AS trg
+		WHERE 
+			trg.HubProductId = fh.HubProductId AND 
+			trg.HubProgramId = sh.HubProgramId
 	)
 END
 GO

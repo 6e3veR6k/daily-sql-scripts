@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Products LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{EFB77A9D-0ECF-4B75-B970-1732C3DC4E43}">
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{835DB055-BED9-4842-821D-796BDFEB5E86}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -196,60 +196,21 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [id]
-      ,[gid]
-      ,[ProductTypeGID]
-      ,[PolisNumber]
-      ,[BranchGID]
-      ,[ResponsibleGID]
-      ,[Number]
-      ,[IsProlonged]
-      ,[IsAction]
-      ,[BeginingDate]
-      ,[EndingDate]
-      ,[RegisteredDate]
-      ,[DurationUnitGID]
-      ,[AgentReportDate]
-      ,[AgentReportNumber]
-      ,[InsurerGID]
-      ,[InsuranceSumUkr]
-      ,[Comment]
-      ,[Deleted]
-      ,[SupplementaryAgreementTypeGID]
-      ,[BaseProductGID]
-      ,[ContractGID]
-      ,[SourceTypeGID]
-      ,[StatusGID]
-      ,[IsEditable]
-      ,[IsFull]
-      ,[LastModifiedAuthorGID]
-      ,[ProductActionGID]
-      ,[ProductPartnerActionGID]
-      ,[CreatorUserGID]
-      ,[AuthorGID]
-      ,[CreateDate]
-      ,[LastModifiedDate]
-      ,[SalesChannelGID]
-      ,[EntranceIntoForceGID]
-      ,[IsInwardsReinsurance]
-      ,[BasePayment]
-      ,[IsReinsured]
-      ,[ReinsurancePolisNumber]
-      ,[SelectDate]
-      ,[OnSaveDate]
-      ,[WorkflowGID]
-      ,[OwnerGID]
-      ,[DealGID]
-      ,[SubSalesChannelGID]
-      ,[BasedOnProductGID]
-      ,[InsurerFaceGID]
-      ,[InsurerFacePersonTypeID]
-      ,[InsurerFaceName]
-FROM [dbo].[Products] AS P
-WHERE 
-	(P.LastModifiedDate &gt; ? AND P.LastModifiedDate &lt;= ?)
-	OR
-	(P.CreateDate &gt; ? AND P.CreateDate &lt;= ?)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[Products] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[Products] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[Products]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -736,6 +697,33 @@ WHERE
                       lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[InsurerFaceName]"
                       name="InsurerFaceName"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[InsuredGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[InsuredGID]"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[InsuredGID]"
+                      name="InsuredGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -945,6 +933,18 @@ WHERE
                       dataType="wstr"
                       length="255"
                       name="InsurerFaceName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[InsuredGID]"
+                      dataType="guid"
+                      name="InsuredGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1207,6 +1207,21 @@ WHERE
                       length="255"
                       lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceName]"
                       name="InsurerFaceName" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[InsuredGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[InsuredGID]"
+                      name="InsuredGID" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
                     <outputColumn
                       refId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -1612,6 +1627,18 @@ WHERE
                       cachedName="LoadDateTime"
                       externalMetadataColumnId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
                       lineageId="Package\LoadStageProducts\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageProducts\GetProducts.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1830,6 +1857,16 @@ WHERE
                       dataType="wstr"
                       length="255"
                       name="InsurerFaceName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageProducts\StageProducts.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
                   </externalMetadataColumns>
                 </input>
               </inputs>

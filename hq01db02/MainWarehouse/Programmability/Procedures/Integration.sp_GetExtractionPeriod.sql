@@ -17,7 +17,8 @@ BEGIN
 	EXECUTE sp_executesql @sqlCommand
 
 	UPDATE [Integration].[PackageExecutions] 
-	SET CurrentExtractionDateTime = CURRENT_TIMESTAMP,
+	--todo: change to curent timestamp  / CURRENT_TIMESTAMP
+	SET CurrentExtractionDateTime = '20211004',
 		UserName = SUSER_SNAME(),
 		Message = 'in progress'
 	WHERE  TableName = @tableName
@@ -27,4 +28,5 @@ BEGIN
 	WHERE TableName = @tableName
 
 END
+
 GO

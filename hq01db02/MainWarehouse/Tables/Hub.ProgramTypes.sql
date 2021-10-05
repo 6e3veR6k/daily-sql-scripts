@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [Hub].[ProgramTypes] (
-  [HubProgramTypeId] [int] IDENTITY,
+  [HubProgramTypeId] [bigint] NOT NULL,
   [ProgramTypeGid] [uniqueidentifier] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,

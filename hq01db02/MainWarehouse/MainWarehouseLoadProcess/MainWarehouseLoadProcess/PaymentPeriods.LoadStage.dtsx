@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="PaymentPeriods LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="27"
-  DTS:VersionGUID="{6015E6F1-159F-481C-BA02-5FACEA1F1C19}">
+  DTS:VersionBuild="32"
+  DTS:VersionGUID="{72207A29-9328-4571-93EB-1CB38DDBE69A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -196,29 +196,21 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [id]
-      ,[gid]
-      ,[ProductGID]
-      ,[PlanDate]
-      ,[DueDate]
-      ,[Deleted]
-      ,[MFO]
-      ,[TicketNumber]
-      ,[Date]
-      ,[Sum]
-      ,[AuthorGID]
-      ,[StartDate]
-      ,[IsAdditional]
-FROM [dbo].[PaymentPeriods] AS Per
-WHERE 
-	EXISTS (
-		SELECT 1 
-		FROM [log].[PaymentPeriods] AS L 
-		WHERE
-			L.LoggedEntityGID = Per.gid 
-			AND
-			(L.ActionDate &gt; ? AND L.ActionDate &lt;= ?)
-		)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[PaymentPeriods] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[PaymentPeriods] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[PaymentPeriods]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -375,6 +367,24 @@ WHERE
                       lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[IsAdditional]"
                       name="IsAdditional"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -434,6 +444,14 @@ WHERE
                       refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[IsAdditional]"
                       dataType="bool"
                       name="IsAdditional" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -510,6 +528,16 @@ WHERE
                       dataType="bool"
                       lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[IsAdditional]"
                       name="IsAdditional" />
+                    <outputColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
                     <outputColumn
                       refId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -693,6 +721,18 @@ WHERE
                       cachedName="SourceLoadId"
                       externalMetadataColumnId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
                       lineageId="Package\LoadStagePaymentPeriods\DefaultValues.Outputs[Derived Column Output].Columns[SourceLoadId]" />
+                    <inputColumn
+                      refId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStagePaymentPeriods\GetPaymentPeriods.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -760,6 +800,16 @@ WHERE
                       refId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePaymentPeriods\StagePaymentPeriods.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
                       scale="7" />
                   </externalMetadataColumns>
                 </input>
@@ -941,7 +991,7 @@ WHERE
     design-time-name="Package\LoadStagePaymentPeriods">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="181,42"
           Id="Package\LoadStagePaymentPeriods\StagePaymentPeriods"
@@ -973,9 +1023,7 @@ WHERE
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -997,9 +1045,7 @@ WHERE
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

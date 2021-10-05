@@ -19,6 +19,8 @@
   [WorkflowGID] [uniqueidentifier] NULL,
   [RepresentativeName] [nvarchar](255) NULL,
   [RepresentativePersonTypeID] [bigint] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_ProductCancels_Id] PRIMARY KEY CLUSTERED ([Id])

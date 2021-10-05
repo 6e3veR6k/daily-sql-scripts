@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [Link].[ProductsToBranches] (
   [LinkProductsToBranchId] [bigint] NOT NULL,
-  [HubBranchId] [int] NOT NULL,
+  [HubBranchId] [bigint] NOT NULL,
   [HubProductId] [bigint] NOT NULL,
-  [LoadDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
+  [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_ProductsToBranches_LinkProductsToBranchId] PRIMARY KEY CLUSTERED ([LinkProductsToBranchId])
 )
 ON [PRIMARY]

@@ -7,6 +7,8 @@
   [ProductCancelTypeGID] [uniqueidentifier] NOT NULL,
   [Deleted] [bit] NOT NULL,
   [AuthorGID] [uniqueidentifier] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_ProductCancelActs_Id] PRIMARY KEY CLUSTERED ([Id])

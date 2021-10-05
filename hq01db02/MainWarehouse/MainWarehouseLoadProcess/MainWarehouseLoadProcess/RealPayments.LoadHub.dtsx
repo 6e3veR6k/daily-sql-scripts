@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="RealPayments LoadHub"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{C95866D8-F939-4722-BCA3-88719F3CF3C3}">
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{2AED8A6A-591C-4888-9F28-8AF9A17E9761}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -93,6 +93,26 @@
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
                       refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Id]"
                       dataType="i8"
                       errorOrTruncationOperation="Conversion"
@@ -111,79 +131,14 @@
                       name="GID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[PaymentDate]"
-                      dataType="dbDate"
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[PaymentDate]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[PaymentDate]"
-                      name="PaymentDate"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Value]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
-                      name="Value"
-                      precision="18"
-                      scale="2"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
-                      length="500"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
-                      name="Comment"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
-                      name="IsCommission"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
-                      name="Deleted"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
-                      name="IsAutomatic"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
-                      dataType="guid"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
-                      name="SourceTypeGID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
-                      dataType="guid"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
-                      name="AuthorGID"
+                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
@@ -193,16 +148,6 @@
                       externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
                       lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
                       name="SourceRecordId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
-                      dataType="dbTimeStamp2"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
-                      name="LoadDateTime"
-                      scale="7"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -259,6 +204,16 @@
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
                       scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -266,70 +221,6 @@
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
-                      dataType="i8"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
-                      name="Id" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
-                      dataType="guid"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
-                      name="GID" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
-                      dataType="dbDate"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
-                      name="PaymentDate" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
-                      dataType="numeric"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
-                      name="Value"
-                      precision="18"
-                      scale="2" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Comment]"
-                      dataType="wstr"
-                      length="500"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Comment]"
-                      name="Comment" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[IsCommission]"
-                      dataType="bool"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[IsCommission]"
-                      name="IsCommission" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
-                      dataType="bool"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
-                      name="Deleted" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[IsAutomatic]"
-                      dataType="bool"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[IsAutomatic]"
-                      name="IsAutomatic" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
-                      dataType="guid"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
-                      name="SourceTypeGID" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
-                      dataType="guid"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
-                      name="AuthorGID" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
-                      dataType="i4"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
-                      name="SourceRecordId" />
-                    <outputColumn
-                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
-                      dataType="dbTimeStamp2"
-                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
-                      name="LoadDateTime"
-                      scale="7" />
                     <outputColumn
                       refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -342,6 +233,39 @@
                       lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i8"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      dataType="guid"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      name="GID" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      lineageId="Package\LoadRealPaymentsHub\GetStageRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      name="SourceRecordId" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -721,6 +645,10 @@ where [refTable].[HubRealPaymentId] = ? and [refTable].[RealPaymentGid] = ?</pro
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="187,42"
+          Id="Package\LoadRealPaymentsHub\LoadHubRealPayments"
+          TopLeft="6.00000000000003,209.5" />
+        <NodeLayout
           Size="188,42"
           Id="Package\LoadRealPaymentsHub\GetStageRealPayments"
           TopLeft="5.50000000000001,5.5" />
@@ -750,10 +678,6 @@ where [refTable].[HubRealPaymentId] = ? and [refTable].[RealPaymentGid] = ?</pro
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="187,42"
-          Id="Package\LoadRealPaymentsHub\LoadHubRealPayments"
-          TopLeft="6.00000000000003,209.5" />
         <EdgeLayout
           Id="Package\LoadRealPaymentsHub.Paths[Lookup No Match Output]"
           TopLeft="99.5,149.5">
@@ -781,6 +705,19 @@ where [refTable].[HubRealPaymentId] = ? and [refTable].[RealPaymentGid] = ?</pro
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadRealPaymentsHub\LoadHubRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\LoadRealPaymentsHub\GetStageRealPayments">
     <Properties>
@@ -814,19 +751,6 @@ where [refTable].[HubRealPaymentId] = ? and [refTable].[RealPaymentGid] = ?</pro
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LoadRealPaymentsHub\LoadHubRealPayments">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

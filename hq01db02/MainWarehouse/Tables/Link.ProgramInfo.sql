@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Link].[ProgramInfo] (
-  [LinkProgramInfoId] [bigint] IDENTITY,
+  [LinkProgramInfoId] [bigint] NOT NULL,
   [HubProgramId] [bigint] NOT NULL,
-  [HubProgramTypeId] [int] NOT NULL,
+  [HubProgramTypeId] [bigint] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_ProgramInfo_LinkProgramInfoId] PRIMARY KEY CLUSTERED ([LinkProgramInfoId])

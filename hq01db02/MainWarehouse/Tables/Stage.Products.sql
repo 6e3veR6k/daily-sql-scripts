@@ -48,6 +48,8 @@
   [InsurerFaceGID] [uniqueidentifier] NOT NULL,
   [InsurerFacePersonTypeID] [bigint] NOT NULL,
   [InsurerFaceName] [nvarchar](255) NOT NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_Products_Id] PRIMARY KEY CLUSTERED ([Id])

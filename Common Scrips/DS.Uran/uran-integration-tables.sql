@@ -52,6 +52,92 @@ WHERE
 
 ******************************************************************************************/
 
+USE [Callisto]
+
+DECLARE @LastExecutionDateTime DATETIME2 = GETDATE() -1;
+DECLARE @CurentExecutionDateTime DATETIME2 = GETDATE()
+DECLARE @tableName NVARCHAR(255) = '[AgentActs]'
+
+DECLARE @query NVARCHAR(4000) = 'SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] FROM [dbo].' +
+	+ @tableName + ' AS src CROSS APPLY (SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] FROM [log].' +
+	+ @tableName + ' AS L WHERE L.LoggedEntityGID = src.gid GROUP BY L.LoggedEntityGID) AS lg WHERE EXISTS (SELECT 1 FROM [log].' +
+	+ @tableName + ' AS [log] WHERE [log].LoggedEntityGID = src.gid AND ([log].ActionDate > @LastExecutionDateTime AND [log].ActionDate <= @CurentExecutionDateTime))'
+DECLARE @paramDefinition NVARCHAR(500) = '@LastExecutionDateTime DATETIME2, @CurentExecutionDateTime DATETIME2'
+
+EXECUTE sys.sp_executesql @query, @paramDefinition, @LastExecutionDateTime, @CurentExecutionDateTime; 
+
+/******************************************************************************************/
+GO
+USE [Callisto]
+
+DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+DECLARE @tableName NVARCHAR(255) = ?
+
+DECLARE @query NVARCHAR(4000) = 'SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] FROM [dbo].' +
+	+ @tableName + ' AS src CROSS APPLY (SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] FROM [log].' +
+	+ @tableName + ' AS L WHERE L.LoggedEntityGID = src.gid GROUP BY L.LoggedEntityGID) AS lg WHERE EXISTS (SELECT 1 FROM [log].' +
+	+ @tableName + ' AS [log] WHERE [log].LoggedEntityGID = src.gid AND ([log].ActionDate > @LastExecutionDateTime AND [log].ActionDate <= @CurentExecutionDateTime))'
+DECLARE @paramDefinition NVARCHAR(500) = '@LastExecutionDateTime DATETIME2, @CurentExecutionDateTime DATETIME2'
+
+EXECUTE sys.sp_executesql @query, @paramDefinition, @LastExecutionDateTime, @CurentExecutionDateTime; 
+
+/******************************************************************************************/
+
+[_CreateDateTime] DATETIME2 NOT NULL,
+[_ActionDateTime] DATETIME2 NOT NULL,
+
+USE [Callisto]
+
+DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate]  
+FROM [dbo].[AgentActs] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[AgentActs] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[AgentActs]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate > @LastExecutionDateTime AND [log].ActionDate <= @CurentExecutionDateTime))
+
+
+/******************************************************************************************/
+/******************************************************************************************/
+
+/******************************************************************************************/
+
+[_CreateDateTime] DATETIME2 NOT NULL,
+[_ActionDateTime] DATETIME2 NOT NULL,
+
+USE [Callisto]
+
+DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[Programs] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[Programs] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[Programs]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate > @LastExecutionDateTime AND [log].ActionDate <= @CurentExecutionDateTime))
+
+
+/******************************************************************************************/
+/******************************************************************************************/
+/******************************************************************************************/
+
+
 Get[Products]Period
 
 EXEC [Integration].[spGetExtractionPeriod] @tableName = N'Stage.[Products]'

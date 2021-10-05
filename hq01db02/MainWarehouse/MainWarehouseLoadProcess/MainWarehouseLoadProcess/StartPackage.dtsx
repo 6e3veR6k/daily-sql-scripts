@@ -11,25 +11,92 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="StartPackage"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{4028CA3F-5DDD-4312-B2FF-8B2200018763}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{177D6DAC-6F01-49AE-A98B-411AAAB29EDA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Load Hubs"
+      DTS:refId="Package\Load Stages and Hubs"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
-      DTS:Disabled="True"
-      DTS:DTSID="{12CC48E9-3246-4FF9-B3C2-D1A7C8632C18}"
+      DTS:DTSID="{5B4991AC-20F6-49F7-8996-C6A4D955768F}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Load Hubs">
+      DTS:ObjectName="Load Stages and Hubs">
       <DTS:Variables />
       <DTS:Executables>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Faces_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\AgentActs_LoadHub"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{35B10A8A-3AF8-4E48-80F3-D28932239F41}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="AgentActs_LoadHub"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>AgentActs.LoadHub.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\AgentActs_LoadStage"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{38C1791A-5B13-4315-97BE-D88D97A05EFA}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="AgentActs_LoadStage"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>AgentActs.LoadStage.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\Branches_LoadHub"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{A2245B69-DCAA-4079-AEF6-EE0F8730AE0E}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Branches_LoadHub"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>Branches.LoadHub.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\Branches_LoadStages"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{CC67E3FA-0E94-440D-8892-8A94E78DD7E6}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Branches_LoadStages"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>Branches.LoadStages.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\Faces_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{EB4F2330-B2AB-4608-8261-C8AEBDC43174}"
@@ -46,7 +113,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Faces_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\Faces_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{F0347AAF-E0A9-4CC7-B878-0056D42002D7}"
@@ -63,7 +130,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PaymentPeriods_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\PaymentPeriods_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{CACF7F30-3492-44E3-AF83-B85C566907B1}"
@@ -80,7 +147,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PaymentPeriods_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\PaymentPeriods_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{546E59D8-E05B-4C19-8C23-9D8E5175CADC}"
@@ -97,7 +164,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PlanedPayments_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\PlanedPayments_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{13B10ED0-033B-48D6-A5D0-1B84C501CA2B}"
@@ -114,7 +181,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PlanedPayments_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\PlanedPayments_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{A69C23EC-45F8-4624-AD68-2298BEB4B153}"
@@ -131,7 +198,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PlanedToRealPayments_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\PlanedToRealPayments_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{16CDB442-4431-47CF-9DC2-5AB2CF081AAF}"
@@ -148,7 +215,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\PlanedToRealPayments_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\PlanedToRealPayments_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{8FE5DB33-FB32-403F-8E7A-2197BE1EE12A}"
@@ -165,7 +232,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Products_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\Products_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{A8D732BF-3985-4795-9580-692ADF5A4E47}"
@@ -182,7 +249,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Products_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\Products_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{CB6BF06A-E2A2-40C6-83BD-040BD2DB370E}"
@@ -199,7 +266,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Programs_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\Programs_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{A5D40EC5-5B35-4221-AA86-1D06C132AE16}"
@@ -216,7 +283,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\Programs_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\Programs_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{716B2057-79A6-4A92-B050-D5C8D49FFF73}"
@@ -233,7 +300,41 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\RealPayments_LoadHub"
+          DTS:refId="Package\Load Stages and Hubs\ProgramTypes_LoadStages"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{3F380CC6-68A0-4489-834A-4C1D398F3C27}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="ProgramTypes_LoadStages"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>ProgramTypes.LoadStages.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\ProgramType_LoadHub"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{DAC96FF1-195D-4321-BD71-F722C2310DCE}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="ProgramType_LoadHub"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>ProgramType.LoadHub.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Stages and Hubs\RealPayments_LoadHub"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{98265888-5373-4404-BC1A-45E1AE704679}"
@@ -250,7 +351,7 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Hubs\RealPayments_LoadStage"
+          DTS:refId="Package\Load Stages and Hubs\RealPayments_LoadStage"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
           DTS:DTSID="{7866DA36-25F8-4C19-9B68-E54A5131A0CE}"
@@ -269,188 +370,88 @@
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint]"
           DTS:CreationName=""
           DTS:DTSID="{A131964E-5401-423C-96B7-84F7E2FEF7FF}"
-          DTS:From="Package\Load Hubs\Faces_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\Faces_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
-          DTS:To="Package\Load Hubs\Faces_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\Faces_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 1]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 1]"
           DTS:CreationName=""
-          DTS:DTSID="{8CC17141-A61F-4233-BB3B-EC6A3A8C932D}"
-          DTS:From="Package\Load Hubs\PaymentPeriods_LoadStage"
+          DTS:DTSID="{383FE20D-50F2-45F9-8CE8-4276432E722F}"
+          DTS:From="Package\Load Stages and Hubs\AgentActs_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 1"
-          DTS:To="Package\Load Hubs\PaymentPeriods_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\AgentActs_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 2]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 11]"
+          DTS:CreationName=""
+          DTS:DTSID="{8CC17141-A61F-4233-BB3B-EC6A3A8C932D}"
+          DTS:From="Package\Load Stages and Hubs\PaymentPeriods_LoadStage"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load Stages and Hubs\PaymentPeriods_LoadHub" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 12]"
+          DTS:CreationName=""
+          DTS:DTSID="{34D837E5-E0A5-4A16-A925-655E8FA8E0B4}"
+          DTS:From="Package\Load Stages and Hubs\Branches_LoadStages"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load Stages and Hubs\Branches_LoadHub" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 13]"
+          DTS:CreationName=""
+          DTS:DTSID="{0510016E-8582-4BD0-87B5-E131BB01ED75}"
+          DTS:From="Package\Load Stages and Hubs\ProgramTypes_LoadStages"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load Stages and Hubs\ProgramType_LoadHub" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 2]"
           DTS:CreationName=""
           DTS:DTSID="{D77871C9-CE5C-4163-B4AE-F97920272D65}"
-          DTS:From="Package\Load Hubs\Products_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\Products_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 2"
-          DTS:To="Package\Load Hubs\Products_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\Products_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 3]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 3]"
           DTS:CreationName=""
           DTS:DTSID="{437C3787-B0B1-4F46-BC89-71B60D4A2F3D}"
-          DTS:From="Package\Load Hubs\Programs_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\Programs_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 3"
-          DTS:To="Package\Load Hubs\Programs_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\Programs_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 4]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 4]"
           DTS:CreationName=""
           DTS:DTSID="{587E2E3E-87D7-4EFD-9C3A-ECE961F146A5}"
-          DTS:From="Package\Load Hubs\PlanedPayments_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\PlanedPayments_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 4"
-          DTS:To="Package\Load Hubs\PlanedPayments_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\PlanedPayments_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 5]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 5]"
           DTS:CreationName=""
           DTS:DTSID="{F02B4888-FC83-4E2C-8402-6DA8EF451DD4}"
-          DTS:From="Package\Load Hubs\PlanedToRealPayments_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\PlanedToRealPayments_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 5"
-          DTS:To="Package\Load Hubs\PlanedToRealPayments_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\PlanedToRealPayments_LoadHub" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Load Hubs.PrecedenceConstraints[Constraint 6]"
+          DTS:refId="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 6]"
           DTS:CreationName=""
           DTS:DTSID="{8327598E-9D2F-48C3-BE02-0593BEED7E9A}"
-          DTS:From="Package\Load Hubs\RealPayments_LoadStage"
+          DTS:From="Package\Load Stages and Hubs\RealPayments_LoadStage"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 6"
-          DTS:To="Package\Load Hubs\RealPayments_LoadHub" />
+          DTS:To="Package\Load Stages and Hubs\RealPayments_LoadHub" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Load Links"
-      DTS:CreationName="STOCK:SEQUENCE"
-      DTS:Description="Sequence Container"
-      DTS:DTSID="{318FD238-C507-4D43-8907-B845502EE511}"
-      DTS:ExecutableType="STOCK:SEQUENCE"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Load Links">
-      <DTS:Variables />
-      <DTS:Executables>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_FactPaymentPeriods"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{832655EE-6F38-4F75-BE65-91AB348F459C}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_FactPaymentPeriods"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.FactPaymentPeriods.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_FactProducts"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{C963E80E-ACE0-4EA6-9374-7D24B4D75BC2}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_FactProducts"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.FactProducts.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_Insurers"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{44BDE01E-E20C-4FFF-A3C4-FC6BDE96C05A}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_Insurers"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.Insurers.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_PlanedPaymentPeriods"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{ECCF395C-A188-40A5-B7D5-464CDD6D3241}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_PlanedPaymentPeriods"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.PlanedPaymentPeriods.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_PlanedToRealPayments"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{A00CB1D5-6171-460C-ABDD-291339AEDD0B}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_PlanedToRealPayments"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.PlanedToRealPayments.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Load Links\Link_ProgramPlanedPayments"
-          DTS:CreationName="Microsoft.ExecutePackageTask"
-          DTS:Description="Execute Package Task"
-          DTS:DTSID="{E85E026D-AB0A-460D-B44F-5899DC4BE60F}"
-          DTS:ExecutableType="Microsoft.ExecutePackageTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Link_ProgramPlanedPayments"
-          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <ExecutePackageTask>
-              <UseProjectReference>True</UseProjectReference>
-              <PackageName>Link.ProgramPlanedPayments.dtsx</PackageName>
-            </ExecutePackageTask>
-          </DTS:ObjectData>
-        </DTS:Executable>
-      </DTS:Executables>
-    </DTS:Executable>
   </DTS:Executables>
-  <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint]"
-      DTS:CreationName=""
-      DTS:DTSID="{B4C543B2-9CA9-4786-814B-520CE683626D}"
-      DTS:From="Package\Load Hubs"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint"
-      DTS:To="Package\Load Links" />
-  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -464,208 +465,99 @@
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="199,42"
-          Id="Package\Load Links\Link_FactPaymentPeriods"
-          TopLeft="5.5,5.5" />
+          Size="174,42"
+          Id="Package\Load Stages and Hubs\AgentActs_LoadHub"
+          TopLeft="300.166666666667,6" />
         <NodeLayout
-          Size="210,42"
-          Id="Package\Load Links\Link_PlanedPaymentPeriods"
-          TopLeft="265,5.5" />
+          Size="181,42"
+          Id="Package\Load Stages and Hubs\AgentActs_LoadStage"
+          TopLeft="3.57575757575771,2" />
         <NodeLayout
-          Size="143,42"
-          Id="Package\Load Links\Link_Insurers"
-          TopLeft="535.5,5.5" />
+          Size="169,42"
+          Id="Package\Load Stages and Hubs\Branches_LoadHub"
+          TopLeft="300.166666666667,725.255892255893" />
         <NodeLayout
-          Size="164,42"
-          Id="Package\Load Links\Link_FactProducts"
-          TopLeft="739,5.5" />
-        <NodeLayout
-          Size="221,42"
-          Id="Package\Load Links\Link_ProgramPlanedPayments"
-          TopLeft="963.5,5.49999999999989" />
-        <NodeLayout
-          Size="213,42"
-          Id="Package\Load Links\Link_PlanedToRealPayments"
-          TopLeft="1245.5,5.49999999999989" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="1464,102"
-          Size="1464,146"
-          Id="Package\Load Links"
-          TopLeft="150.5,313.5" />
-        <NodeLayout
-          Size="161,42"
-          Id="Package\Load Hubs\Faces_LoadStage"
-          TopLeft="5.5,5.5" />
-        <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint]"
-          TopLeft="86,47.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="182,42"
+          Id="Package\Load Stages and Hubs\Branches_LoadStages"
+          TopLeft="3.57575757575771,722.811447811448" />
         <NodeLayout
           Size="153,42"
-          Id="Package\Load Hubs\Faces_LoadHub"
-          TopLeft="9.5,107.5" />
+          Id="Package\Load Stages and Hubs\Faces_LoadHub"
+          TopLeft="300.166666666667,275.72095959596" />
         <NodeLayout
-          Size="209,42"
-          Id="Package\Load Hubs\PaymentPeriods_LoadStage"
-          TopLeft="227.5,5.49999999999989" />
+          Size="161,42"
+          Id="Package\Load Stages and Hubs\Faces_LoadStage"
+          TopLeft="3.57575757575771,282.054292929293" />
         <NodeLayout
           Size="202,42"
-          Id="Package\Load Hubs\PaymentPeriods_LoadHub"
-          TopLeft="231,107.5" />
-        <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 1]"
-          TopLeft="332,47.4999999999999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Id="Package\Load Stages and Hubs\PaymentPeriods_LoadHub"
+          TopLeft="300.166666666667,635.348905723906" />
         <NodeLayout
-          Size="175,42"
-          Id="Package\Load Hubs\Products_LoadStage"
-          TopLeft="497.5,5.49999999999989" />
-        <NodeLayout
-          Size="171,42"
-          Id="Package\Load Hubs\Programs_LoadHub"
-          TopLeft="737.5,107.5" />
-        <NodeLayout
-          Size="167,42"
-          Id="Package\Load Hubs\Products_LoadHub"
-          TopLeft="501.5,107.5" />
-        <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 2]"
-          TopLeft="585,47.4999999999999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="179,42"
-          Id="Package\Load Hubs\Programs_LoadStage"
-          TopLeft="733.5,5.49999999999989" />
-        <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 3]"
-          TopLeft="823,47.4999999999999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="211,42"
-          Id="Package\Load Hubs\PlanedPayments_LoadStage"
-          TopLeft="973.5,5.49999999999989" />
+          Size="209,42"
+          Id="Package\Load Stages and Hubs\PaymentPeriods_LoadStage"
+          TopLeft="3.57575757575771,641.460016835017" />
         <NodeLayout
           Size="203,42"
-          Id="Package\Load Hubs\PlanedPayments_LoadHub"
-          TopLeft="977.5,107.5" />
-        <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 4]"
-          TopLeft="1079,47.4999999999999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Id="Package\Load Stages and Hubs\PlanedPayments_LoadHub"
+          TopLeft="300.166666666667,545.441919191919" />
         <NodeLayout
-          Size="243,42"
-          Id="Package\Load Hubs\PlanedToRealPayments_LoadStage"
-          TopLeft="1245.5,5.49999999999977" />
+          Size="211,42"
+          Id="Package\Load Stages and Hubs\PlanedPayments_LoadStage"
+          TopLeft="3.57575757575771,552.108585858586" />
         <NodeLayout
           Size="236,42"
-          Id="Package\Load Hubs\PlanedToRealPayments_LoadHub"
-          TopLeft="1249,107.5" />
+          Id="Package\Load Stages and Hubs\PlanedToRealPayments_LoadHub"
+          TopLeft="300.166666666667,455.534932659933" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\Load Stages and Hubs\PlanedToRealPayments_LoadStage"
+          TopLeft="3.57575757575771,462.757154882155" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Load Stages and Hubs\Products_LoadHub"
+          TopLeft="300.166666666667,95.9069865319865" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Load Stages and Hubs\Products_LoadStage"
+          TopLeft="3.57575757575771,97.351430976431" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Load Stages and Hubs\Programs_LoadHub"
+          TopLeft="300.166666666667,185.813973063973" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Load Stages and Hubs\Programs_LoadStage"
+          TopLeft="3.57575757575771,192.702861952862" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Load Stages and Hubs\ProgramType_LoadHub"
+          TopLeft="300.166666666667,815.162878787879" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Load Stages and Hubs\ProgramTypes_LoadStages"
+          TopLeft="3.57575757575771,820.162878787879" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Load Stages and Hubs\RealPayments_LoadHub"
+          TopLeft="300.166666666667,365.627946127946" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\Load Stages and Hubs\RealPayments_LoadStage"
+          TopLeft="3.57575757575771,371.405723905724" />
         <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 5]"
-          TopLeft="1367,47.4999999999998">
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint]"
+          TopLeft="164.575757575758,299.887626262626">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="135.590909090909,0"
               Start="0,0"
-              End="0,52.5">
+              End="128.090909090909,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="128.090909090909,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -674,28 +566,196 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="200,42"
-          Id="Package\Load Hubs\RealPayments_LoadStage"
-          TopLeft="1549,5.49999999999977" />
-        <NodeLayout
-          Size="192,42"
-          Id="Package\Load Hubs\RealPayments_LoadHub"
-          TopLeft="1553,107.5" />
         <EdgeLayout
-          Id="Package\Load Hubs.PrecedenceConstraints[Constraint 6]"
-          TopLeft="1649,47.4999999999998">
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 1]"
+          TopLeft="184.575757575758,25">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="115.590909090909,0"
               Start="0,0"
-              End="0,52.5">
+              End="108.090909090909,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="108.090909090909,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 11]"
+          TopLeft="212.575757575758,659.404461279462">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="87.5909090909093,0"
+              Start="0,0"
+              End="80.0909090909093,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="80.0909090909093,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 12]"
+          TopLeft="185.575757575758,745.03367003367">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="114.590909090909,0"
+              Start="0,0"
+              End="107.090909090909,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="107.090909090909,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 13]"
+          TopLeft="209.575757575758,838.662878787879">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="90.5909090909093,0"
+              Start="0,0"
+              End="83.0909090909093,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="83.0909090909093,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 2]"
+          TopLeft="178.575757575758,117.629208754209">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="121.590909090909,0"
+              Start="0,0"
+              End="114.090909090909,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="114.090909090909,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 3]"
+          TopLeft="182.575757575758,210.258417508417">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117.590909090909,0"
+              Start="0,0"
+              End="110.090909090909,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="110.090909090909,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 4]"
+          TopLeft="214.575757575758,569.775252525253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="85.5909090909093,0"
+              Start="0,0"
+              End="78.0909090909093,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="78.0909090909093,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 5]"
+          TopLeft="246.575757575758,480.146043771044">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53.5909090909093,0"
+              Start="0,0"
+              End="46.0909090909093,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="46.0909090909093,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Stages and Hubs.PrecedenceConstraints[Constraint 6]"
+          TopLeft="203.575757575758,389.516835016835">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="96.5909090909093,0"
+              Start="0,0"
+              End="89.0909090909093,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="89.0909090909093,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -707,32 +767,10 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="1754,204"
-          Size="1754,248"
-          Id="Package\Load Hubs"
-          TopLeft="5.5,5.5" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="882.5,253.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60.0000000000002"
-              Start="0,0"
-              End="0,52.5000000000002">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5000000000002" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          PanelSize="579,941"
+          Size="579,984"
+          Id="Package\Load Stages and Hubs"
+          TopLeft="39,220" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Programs LoadHub"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{BD893963-BB24-47F1-9FB9-551C701923E5}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{BA56C6C5-2536-404A-9496-607D3AA2992C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -229,6 +229,26 @@
                       name="LoadDateTime"
                       scale="7"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -298,6 +318,16 @@
                       refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
                       scale="7" />
                   </externalMetadataColumns>
                 </output>
@@ -375,6 +405,18 @@
                       lineageId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[CurrencyExchangeCost]"
                       name="CurrencyExchangeCost"
                       precision="10"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
                       scale="7" />
                     <outputColumn
                       refId="Package\GetFromStage\GetStagePrograms.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
@@ -768,7 +810,7 @@ where [refTable].[HubProgramId] = ? and [refTable].[ProgramGid] = ?</property>
         <NodeLayout
           Size="146,42"
           Id="Package\GetFromStage"
-          TopLeft="101,57" />
+          TopLeft="5.5,5.5" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -778,13 +820,17 @@ where [refTable].[HubProgramId] = ? and [refTable].[ProgramGid] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="166,42"
-          Id="Package\GetFromStage\GetStagePrograms"
-          TopLeft="86,105" />
-        <NodeLayout
           Size="113,42"
           Id="Package\GetFromStage\Lookup"
           TopLeft="118,190" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\GetFromStage\HubPrograms"
+          TopLeft="106,296" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\GetFromStage\GetStagePrograms"
+          TopLeft="86,105" />
         <EdgeLayout
           Id="Package\GetFromStage.Paths[OLE DB Source Output]"
           TopLeft="171.75,147">
@@ -807,10 +853,6 @@ where [refTable].[HubProgramId] = ? and [refTable].[ProgramGid] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="143,42"
-          Id="Package\GetFromStage\HubPrograms"
-          TopLeft="106,296" />
         <EdgeLayout
           Id="Package\GetFromStage.Paths[Lookup No Match Output]"
           TopLeft="176,232">
@@ -839,7 +881,30 @@ where [refTable].[HubProgramId] = ? and [refTable].[ProgramGid] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\GetFromStage\GetStagePrograms">
+    design-time-name="Package\GetFromStage\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[Programs]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\GetFromStage\HubPrograms">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -852,30 +917,7 @@ where [refTable].[HubProgramId] = ? and [refTable].[ProgramGid] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\GetFromStage\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[Hub].[Programs]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\GetFromStage\HubPrograms">
+    design-time-name="Package\GetFromStage\GetStagePrograms">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

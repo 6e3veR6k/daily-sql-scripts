@@ -24,16 +24,18 @@ BEGIN
 				,[LoadDateTime])
 	SELECT
 		NEXT VALUE FOR [Link].[sq_Insurers] AS LinkInsurerId,
-		HP.HubProductId AS HubProductId,
-		HF.HubFaceId AS HubFacesId,
+		fh.HubProductId AS HubProductId,
+		sh.HubFaceId AS HubFacesId,
 		@SourceRecordId AS SourceRecordId,
 		@LoadDateTime
-	FROM Stage.Products AS P 
-	INNER JOIN Hub.Products AS HP
-		ON HP.HubProductId = P.Id
-	INNER JOIN Hub.Faces AS HF
-		ON HF.FaceGid = P.InsurerFaceGID
-	WHERE NOT EXISTS (SELECT 1 FROM Link.Insurers AS I WHERE I.HubProductId = HP.HubProductId AND I.HubFaceId = HF.HubFaceId)
+	FROM Stage.Products AS src
+	LEFT JOIN Hub.Products AS fh ON fh.HubProductId = src.Id
+	LEFT JOIN Hub.Faces AS sh ON sh.FaceGid = src.InsurerFaceGID
+	WHERE NOT EXISTS 
+		(SELECT 1 FROM Link.Insurers AS trg 
+		WHERE 
+			trg.HubProductId = fh.HubProductId AND 
+			trg.HubFaceId = sh.HubFaceId)
 
 END
 GO

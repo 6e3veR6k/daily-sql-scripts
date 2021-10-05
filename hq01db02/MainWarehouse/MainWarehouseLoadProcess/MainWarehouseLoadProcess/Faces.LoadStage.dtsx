@@ -11,11 +11,60 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Faces LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{44FDCFB1-FA44-49B4-9C6A-4273C235562A}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{A2A053E1-103A-4905-B643-2F22D5586955}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[hq01db01.Metis]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9EC60B98-2436-434B-BA04-91437B85377B}"
+      DTS:ObjectName="hq01db01.Metis">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Package::MainServerIdentity_dbName_Metis]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Package::MainServerIdentity_Metis_ServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=hq01db01;Initial Catalog=Metis;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{EE52D384-AC42-4C10-82A6-223FBE96A321}"
+      DTS:ObjectName="MainServerIdentity_dbName_Metis"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Metis</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{7BCBF7D1-3A41-498D-813E-DFB3FCDAED54}"
+      DTS:ObjectName="MainServerIdentity_Metis_ServerName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">hq01db01</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
   <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{83607533-E96E-4932-B6DA-9C830DF449E6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="dbName">
+      <DTS:VariableValue
+        DTS:DataType="8">Metis</DTS:VariableValue>
+    </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{9D8DF004-1209-4F6A-AF52-339C7E454497}"
@@ -33,6 +82,15 @@
       DTS:ObjectName="dtLSE_Faces">
       <DTS:VariableValue
         DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{69B09080-7934-4086-BBA3-2970EAC3C570}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ServerName">
+      <DTS:VariableValue
+        DTS:DataType="8">hq01db01</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -196,56 +254,21 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">USE Metis
-SELECT [id]
-      ,[gid]
-      ,[PersonTypeID]
-      ,[Name]
-      ,[IdentificationCode]
-      ,[Profession]
-      ,[Address]
-      ,[ActualAddress]
-      ,[PhoneNumber]
-      ,[Fax]
-      ,[AdditionalContactInfo]
-      ,[Email]
-      ,[PostAddressGID]
-      ,[PostActualAddressGID]
-      ,[ActivityGID]
-      ,[FullNameEnglish]
-      ,[WebAddress]
-      ,[PhoneNumberAdditional]
-      ,[MobilePhoneNumber]
-      ,[HomePhoneNumber]
-      ,[WorkPhoneNumber]
-      ,[FullName]
-      ,[ParentGID]
-      ,[EDRPOU]
-      ,[IsResponsible]
-      ,[Firstname]
-      ,[Secondname]
-      ,[Lastname]
-      ,[IsMan]
-      ,[Birthdate]
-      ,[DriverFrom]
-      ,[GenitiveName]
-      ,[GenitivePost]
-      ,[Post]
-      ,[FaceID]
-      ,[AuthorGID]
-      ,[IsSanction]
-      ,[IsPEP]
-      ,[RiskGroupID]
-FROM [dbo].[Faces]
-WHERE 
-	EXISTS (
-		SELECT 1 
-		FROM [log].[Faces] AS L 
-		WHERE
-			L.LoggedEntityGID = Faces.gid 
-			AND
-			(L.ActionDate &gt; ? AND L.ActionDate &lt;= ?)
-		)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[Faces] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[Faces] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[Faces]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -271,8 +294,8 @@ WHERE
               <connections>
                 <connection
                   refId="Package\LoadStageFaces\GetFaces.Connections[OleDbConnection]"
-                  connectionManagerID="{6AA792AA-834B-481F-90D5-3C6A1A68822A}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[MainServerIdentity]"
+                  connectionManagerID="Package.ConnectionManagers[hq01db01.Metis]"
+                  connectionManagerRefId="Package.ConnectionManagers[hq01db01.Metis]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -657,6 +680,24 @@ WHERE
                       lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[RiskGroupID]"
                       name="RiskGroupID"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -841,6 +882,14 @@ WHERE
                       refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[RiskGroupID]"
                       dataType="i8"
                       name="RiskGroupID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1068,6 +1117,16 @@ WHERE
                       dataType="i8"
                       lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[RiskGroupID]"
                       name="RiskGroupID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
                     <outputColumn
                       refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -1428,6 +1487,18 @@ WHERE
                       cachedName="SourceLoadId"
                       externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
                       lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[SourceLoadId]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1621,6 +1692,16 @@ WHERE
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
                       scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1779,13 +1860,13 @@ WHERE
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
-          Id="Package\LoadStageFaces\Derived Column"
-          TopLeft="6.00000000000003,107.5" />
-        <NodeLayout
           Size="155,42"
           Id="Package\LoadStageFaces\LoadStageFaces"
           TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\LoadStageFaces\Derived Column"
+          TopLeft="6.00000000000003,107.5" />
         <NodeLayout
           Size="122,42"
           Id="Package\LoadStageFaces\GetFaces"

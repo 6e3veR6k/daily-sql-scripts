@@ -11,6 +11,8 @@
   [CalculatedInsuranceRate] [decimal](18, 10) NULL,
   [CurrencyGID] [uniqueidentifier] NULL,
   [CurrencyExchangeCost] [decimal](10, 7) NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_Programs_Id] PRIMARY KEY CLUSTERED ([Id])

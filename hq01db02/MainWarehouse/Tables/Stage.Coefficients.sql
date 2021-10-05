@@ -9,6 +9,8 @@
   [CalculatedValue] [decimal](18, 4) NULL,
   [InsuranceObjectGID] [uniqueidentifier] NULL,
   [IsFixed] [bit] NOT NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_Coefficients_Id] PRIMARY KEY CLUSTERED ([Id])

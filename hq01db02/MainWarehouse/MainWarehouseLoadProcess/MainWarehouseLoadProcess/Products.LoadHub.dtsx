@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Products LoadHub"
   DTS:PackageType="5"
-  DTS:VersionBuild="4"
-  DTS:VersionGUID="{7F80F799-15A8-4590-B95F-7D96BF2DB1B0}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{FBA5491A-4DB3-4585-9CC5-94AF6ACA67DD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -894,6 +894,26 @@ where [refTable].[HubProductId] = ? and [refTable].[ProductGid] = ?</property>
                       name="LoadDateTime"
                       scale="7"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1111,6 +1131,16 @@ where [refTable].[HubProductId] = ? and [refTable].[ProductGid] = ?</property>
                       refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
                       scale="7" />
                   </externalMetadataColumns>
                 </output>
@@ -1374,6 +1404,18 @@ where [refTable].[HubProductId] = ? and [refTable].[ProductGid] = ?</property>
                       length="255"
                       lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceName]"
                       name="InsurerFaceName" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7" />
                     <outputColumn
                       refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
                       dataType="i4"

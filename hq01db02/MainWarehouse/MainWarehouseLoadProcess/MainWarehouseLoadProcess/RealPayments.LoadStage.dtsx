@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="RealPayments LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{90297A21-7080-464E-8300-14F13A024BF2}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{AD6F9587-C45D-4ABE-9356-F4413981E55F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -196,26 +196,21 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT RP.[id]
-      ,RP.[gid]
-      ,RP.[PaymentDate]
-      ,RP.[Value]
-      ,RP.[Comment]
-      ,RP.[IsCommission]
-      ,RP.[Deleted]
-      ,RP.[IsAutomatic]
-      ,RP.[SourceTypeGID]
-      ,RP.[AuthorGID]
-FROM [dbo].[RealPayments] AS RP
-WHERE 
-	EXISTS (
-		SELECT 1 
-		FROM [log].[RealPayments] AS L 
-		WHERE
-			L.LoggedEntityGID = RP.gid 
-			AND
-			(L.ActionDate &gt; ? AND L.ActionDate &lt;= ?)
-		)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[RealPayments] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[RealPayments] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[RealPayments]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -344,6 +339,24 @@ WHERE
                       lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
                       name="AuthorGID"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -390,6 +403,14 @@ WHERE
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
                       dataType="guid"
                       name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -450,6 +471,16 @@ WHERE
                       dataType="guid"
                       lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
                       name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
                     <outputColumn
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -614,6 +645,18 @@ WHERE
                       cachedName="LoadDateTime"
                       externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
                       lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -668,6 +711,16 @@ WHERE
                       refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
                       scale="7" />
                   </externalMetadataColumns>
                 </input>
@@ -827,17 +880,17 @@ WHERE
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="161,42"
-          Id="Package\LoadStageRealPayments\GetRealPayments"
-          TopLeft="16,5.5" />
+          Size="172,42"
+          Id="Package\LoadStageRealPayments\StageRealPayments"
+          TopLeft="5.50000000000003,209.5" />
         <NodeLayout
           Size="144,42"
           Id="Package\LoadStageRealPayments\DefaultValues"
           TopLeft="14,107.5" />
         <NodeLayout
-          Size="172,42"
-          Id="Package\LoadStageRealPayments\StageRealPayments"
-          TopLeft="5.50000000000003,209.5" />
+          Size="161,42"
+          Id="Package\LoadStageRealPayments\GetRealPayments"
+          TopLeft="16,5.5" />
         <EdgeLayout
           Id="Package\LoadStageRealPayments.Paths[OLE DB Source Output]"
           TopLeft="96.5,47.5">
@@ -898,14 +951,6 @@ WHERE
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\LoadStageRealPayments\GetRealPayments">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\LoadStageRealPayments\StageRealPayments">
     <Properties>
       <Property>
@@ -915,6 +960,14 @@ WHERE
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageRealPayments\GetRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

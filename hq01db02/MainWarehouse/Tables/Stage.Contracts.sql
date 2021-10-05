@@ -25,6 +25,8 @@
   [SubSalesChannelGID] [uniqueidentifier] NULL,
   [AgentPermissionGID] [uniqueidentifier] NULL,
   [RegisteredDate] [date] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_Contracts_Id] PRIMARY KEY CLUSTERED ([Id])

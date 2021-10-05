@@ -20,6 +20,8 @@
   [EntityCostValueGID] [uniqueidentifier] NULL,
   [LastModifiedObjectDate] [datetime] NULL,
   [InsurancePaymentInCurrency] [decimal](18, 2) NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_InsuranceObjects_Id] PRIMARY KEY CLUSTERED ([Id])

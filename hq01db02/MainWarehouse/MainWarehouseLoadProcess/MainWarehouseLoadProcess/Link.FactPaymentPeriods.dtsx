@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Link FactPaymentPeriods"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{23330BDF-99C2-4BA7-953D-F1F73E769108}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{DAE9E396-8ABE-4163-B063-C0B425152F1B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -43,7 +43,7 @@
             SQLTask:ParameterName="1"
             SQLTask:DtsVariableName="$Project::CurrentExtractionDateTime"
             SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
+            SQLTask:DataType="7"
             SQLTask:ParameterSize="-1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>

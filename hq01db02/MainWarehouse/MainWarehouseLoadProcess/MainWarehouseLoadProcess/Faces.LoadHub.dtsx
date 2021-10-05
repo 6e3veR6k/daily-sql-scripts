@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Faces LoadHub"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{2EC62E4B-9953-4730-972D-12107321A54D}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{98CED328-347A-4BE2-9E45-D60E74027103}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -487,6 +487,26 @@
                       name="LoadDateTime"
                       scale="7"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -679,6 +699,16 @@
                       refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
                       dataType="dbTimeStamp2"
                       name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
                       scale="7" />
                   </externalMetadataColumns>
                 </output>
@@ -907,6 +937,18 @@
                       dataType="i8"
                       lineageId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[RiskGroupID]"
                       name="RiskGroupID" />
+                    <outputColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7" />
                     <outputColumn
                       refId="Package\LoadHubFaces\GetStageFaces.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
                       dataType="i4"
@@ -1309,39 +1351,17 @@ where [refTable].[HubFaceId] = ? and [refTable].[FaceGid] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="148,42"
-          Id="Package\LoadHubFaces\GetStageFaces"
-          TopLeft="5.50000000000001,5.5" />
-        <NodeLayout
           Size="113,42"
           Id="Package\LoadHubFaces\Lookup"
           TopLeft="23,107.5" />
         <NodeLayout
+          Size="148,42"
+          Id="Package\LoadHubFaces\GetStageFaces"
+          TopLeft="5.50000000000001,5.5" />
+        <NodeLayout
           Size="147,42"
           Id="Package\LoadHubFaces\LoadHubFaces"
           TopLeft="6.00000000000003,209.5" />
-        <EdgeLayout
-          Id="Package\LoadHubFaces.Paths[OLE DB Source Output]"
-          TopLeft="79.5,47.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\LoadHubFaces.Paths[Lookup No Match Output]"
           TopLeft="79.5,149.5">
@@ -1366,9 +1386,54 @@ where [refTable].[HubFaceId] = ? and [refTable].[FaceGid] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadHubFaces.Paths[OLE DB Source Output]"
+          TopLeft="79.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadHubFaces\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[Faces]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\LoadHubFaces\GetStageFaces">
     <Properties>
@@ -1379,29 +1444,6 @@ where [refTable].[HubFaceId] = ? and [refTable].[FaceGid] = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\LoadHubFaces\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[Hub].[Faces]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

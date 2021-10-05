@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="PlanedToRealPayments LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{2DF53F9D-41CD-4612-8264-BE6FF9DB8F23}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{A44CC7AE-6A74-4086-A475-5E2CF352EF91}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -196,23 +196,21 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT PtRP.[id]
-      ,PtRP.[gid]
-      ,PtRP.[PlanedPaymentGID]
-      ,PtRP.[RealPaymentGID]
-      ,PtRP.[Value]
-      ,PtRP.[Deleted]
-      ,PtRP.[AuthorGID]
-FROM [dbo].[PlanedToRealPayments] AS PtRP
-WHERE 
-	EXISTS (
-		SELECT 1 
-		FROM [log].[PlanedToRealPayments] AS L 
-		WHERE
-			L.LoggedEntityGID = PtRP.gid 
-			AND
-			(L.ActionDate &gt; ? AND L.ActionDate &lt;= ?)
-		)</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[PlanedToRealPayments] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[PlanedToRealPayments] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[PlanedToRealPayments]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -313,6 +311,24 @@ WHERE
                       lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
                       name="AuthorGID"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -346,6 +362,14 @@ WHERE
                       refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
                       dataType="guid"
                       name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -390,6 +414,16 @@ WHERE
                       dataType="guid"
                       lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
                       name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
                     <outputColumn
                       refId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -535,6 +569,18 @@ WHERE
                       cachedName="AuthorGID"
                       externalMetadataColumnId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
                       lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStagePlanedToRealPayments\GetPlanedToRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -577,6 +623,16 @@ WHERE
                       refId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
                       dataType="guid"
                       name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStagePlanedToRealPayments\StagePlanedToRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
                   </externalMetadataColumns>
                 </input>
               </inputs>

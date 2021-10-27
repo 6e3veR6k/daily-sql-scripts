@@ -1,0 +1,1321 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/7/2021 11:01:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{933F3BC7-E140-4090-908A-3CEF1B7B022E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="AgentActsCommissions LoadStage"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{EB362186-2B9F-44E4-AC4E-C519BA970B23}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{61F5E281-C8DA-4659-BF1E-B1B61B646D95}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtCE_AgentActsCommissions">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2011</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5C3A9248-6D8E-4FC5-8ECE-63F65932924E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtLSE_AgentActsCommissions">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\GetLastSuccesfulLoadDate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AF5E1AF2-AC05-4177-AEE5-E1823E8EBA6C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="GetLastSuccesfulLoadDate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="DECLARE @tableName NVARCHAR(250) = N'Stage.AgentActsCommissions'&#xA;EXEC [Integration].[sp_GetExtractionPeriod] @tableName"
+          SQLTask:CodePage="1251"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastSuccessfulExtractionDatetime"
+            SQLTask:DtsVariableName="User::dtLSE_AgentActsCommissions" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="CurrentExtractionDateTime"
+            SQLTask:DtsVariableName="User::dtCE_AgentActsCommissions" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadStageAgentActsCommissions"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{34B5E0E7-D814-4012-B1A8-1003AEFCFD5F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadStageAgentActsCommissions"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadStageAgentActsCommissions\DefaultValues"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DefaultValues"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LoadStageAgentActsCommissions\DefaultValues.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\LoadStageAgentActsCommissions\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::SourceLoadId]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::SourceLoadId]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::CurrentExtractionDateTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::CurrentExtractionDateTime]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\LoadStageAgentActsCommissions\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetAgentActsCommissions"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">USE [Callisto]
+
+DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+USE Callisto
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[AgentActsCommissions] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[AgentActsCommissions] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[AgentActsCommissions]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0:Input",{5C3A9248-6D8E-4FC5-8ECE-63F65932924E};"1:Input",{61F5E281-C8DA-4659-BF1E-B1B61B646D95};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Connections[OleDbConnection]"
+                  connectionManagerID="{6AA792AA-834B-481F-90D5-3C6A1A68822A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MainServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[gid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[gid]"
+                      name="gid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentActGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AgentActGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentActGID]"
+                      name="AgentActGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProductGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductGID]"
+                      name="ProductGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      name="PolisNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalPolisNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[OriginalPolisNumber]"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalPolisNumber]"
+                      name="OriginalPolisNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductTypeCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProductTypeCode]"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductTypeCode]"
+                      name="ProductTypeCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProgramTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProgramTypeGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProgramTypeGID]"
+                      name="ProgramTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[InsuranceTypeCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[InsuranceTypeCode]"
+                      length="10"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[InsuranceTypeCode]"
+                      name="InsuranceTypeCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentGID]"
+                      name="RealPaymentGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentDate]"
+                      name="RealPaymentDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentValue]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentValue]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentValue]"
+                      name="RealPaymentValue"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PlanedPaymentDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[PlanedPaymentDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PlanedPaymentDate]"
+                      name="PlanedPaymentDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Value]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ValueType]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ValueType]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ValueType]"
+                      name="ValueType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[CommissionValue]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[CommissionValue]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[CommissionValue]"
+                      name="CommissionValue"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalAgentGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[OriginalAgentGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalAgentGID]"
+                      name="OriginalAgentGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      name="BranchGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentPermissionGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AgentPermissionGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentPermissionGID]"
+                      name="AgentPermissionGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AgentActGID]"
+                      dataType="guid"
+                      name="AgentActGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProductGID]"
+                      dataType="guid"
+                      name="ProductGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="PolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[OriginalPolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="OriginalPolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProductTypeCode]"
+                      dataType="wstr"
+                      length="50"
+                      name="ProductTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ProgramTypeGID]"
+                      dataType="guid"
+                      name="ProgramTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[InsuranceTypeCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="InsuranceTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentGID]"
+                      dataType="guid"
+                      name="RealPaymentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentDate]"
+                      dataType="dbDate"
+                      name="RealPaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[RealPaymentValue]"
+                      dataType="numeric"
+                      name="RealPaymentValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[PlanedPaymentDate]"
+                      dataType="dbTimeStamp"
+                      name="PlanedPaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      dataType="numeric"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[ValueType]"
+                      dataType="i4"
+                      name="ValueType" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[CommissionValue]"
+                      dataType="numeric"
+                      name="CommissionValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[OriginalAgentGID]"
+                      dataType="guid"
+                      name="OriginalAgentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      dataType="guid"
+                      name="BranchGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[AgentPermissionGID]"
+                      dataType="guid"
+                      name="AgentPermissionGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      name="gid" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AgentActGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AgentActGID]"
+                      name="AgentActGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProductGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProductGID]"
+                      name="ProductGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      name="PolisNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[OriginalPolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[OriginalPolisNumber]"
+                      name="OriginalPolisNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProductTypeCode]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProductTypeCode]"
+                      name="ProductTypeCode" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProgramTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ProgramTypeGID]"
+                      name="ProgramTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[InsuranceTypeCode]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[InsuranceTypeCode]"
+                      name="InsuranceTypeCode" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentGID]"
+                      name="RealPaymentGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentDate]"
+                      dataType="dbDate"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentDate]"
+                      name="RealPaymentDate" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentValue]"
+                      dataType="numeric"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[RealPaymentValue]"
+                      name="RealPaymentValue"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[PlanedPaymentDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[PlanedPaymentDate]"
+                      name="PlanedPaymentDate" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      dataType="numeric"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ValueType]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ValueType]"
+                      name="ValueType" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[CommissionValue]"
+                      dataType="numeric"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[CommissionValue]"
+                      name="CommissionValue"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[OriginalAgentGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[OriginalAgentGID]"
+                      name="OriginalAgentGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      name="BranchGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AgentPermissionGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[AgentPermissionGID]"
+                      name="AgentPermissionGID" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LoadStageAgentActsCommissions"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[AgentActsCommissions]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[gid]"
+                      cachedDataType="guid"
+                      cachedName="gid"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[gid]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[AgentActGID]"
+                      cachedDataType="guid"
+                      cachedName="AgentActGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AgentActGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentActGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[ProductGID]"
+                      cachedDataType="guid"
+                      cachedName="ProductGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProductGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[PolisNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PolisNumber"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[PolisNumber]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PolisNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[OriginalPolisNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OriginalPolisNumber"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[OriginalPolisNumber]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalPolisNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[ProductTypeCode]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ProductTypeCode"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProductTypeCode]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProductTypeCode]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[ProgramTypeGID]"
+                      cachedDataType="guid"
+                      cachedName="ProgramTypeGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProgramTypeGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ProgramTypeGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[InsuranceTypeCode]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="InsuranceTypeCode"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[InsuranceTypeCode]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[InsuranceTypeCode]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[RealPaymentGID]"
+                      cachedDataType="guid"
+                      cachedName="RealPaymentGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[RealPaymentDate]"
+                      cachedDataType="dbDate"
+                      cachedName="RealPaymentDate"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[RealPaymentValue]"
+                      cachedDataType="numeric"
+                      cachedName="RealPaymentValue"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentValue]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[RealPaymentValue]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[PlanedPaymentDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="PlanedPaymentDate"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[PlanedPaymentDate]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[PlanedPaymentDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[Value]"
+                      cachedDataType="numeric"
+                      cachedName="Value"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[Value]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Value]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[ValueType]"
+                      cachedDataType="i4"
+                      cachedName="ValueType"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ValueType]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[ValueType]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[CommissionValue]"
+                      cachedDataType="numeric"
+                      cachedName="CommissionValue"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[CommissionValue]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[CommissionValue]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[Deleted]"
+                      cachedDataType="bool"
+                      cachedName="Deleted"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[Deleted]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[AuthorGID]"
+                      cachedDataType="guid"
+                      cachedName="AuthorGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[OriginalAgentGID]"
+                      cachedDataType="guid"
+                      cachedName="OriginalAgentGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[OriginalAgentGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[OriginalAgentGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[BranchGID]"
+                      cachedDataType="guid"
+                      cachedName="BranchGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[BranchGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[BranchGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[AgentPermissionGID]"
+                      cachedDataType="guid"
+                      cachedName="AgentPermissionGID"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AgentPermissionGID]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[AgentPermissionGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="date"
+                      cachedName="LoadDateTime"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AgentActGID]"
+                      dataType="guid"
+                      name="AgentActGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProductGID]"
+                      dataType="guid"
+                      name="ProductGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[PolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="PolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[OriginalPolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="OriginalPolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProductTypeCode]"
+                      dataType="wstr"
+                      length="50"
+                      name="ProductTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ProgramTypeGID]"
+                      dataType="guid"
+                      name="ProgramTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[InsuranceTypeCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="InsuranceTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentGID]"
+                      dataType="guid"
+                      name="RealPaymentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentDate]"
+                      dataType="dbDate"
+                      name="RealPaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[RealPaymentValue]"
+                      dataType="numeric"
+                      name="RealPaymentValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[PlanedPaymentDate]"
+                      dataType="dbTimeStamp"
+                      name="PlanedPaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[Value]"
+                      dataType="numeric"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[ValueType]"
+                      dataType="i4"
+                      name="ValueType" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[CommissionValue]"
+                      dataType="numeric"
+                      name="CommissionValue"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[OriginalAgentGID]"
+                      dataType="guid"
+                      name="OriginalAgentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[BranchGID]"
+                      dataType="guid"
+                      name="BranchGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[AgentPermissionGID]"
+                      dataType="guid"
+                      name="AgentPermissionGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadStageAgentActsCommissions.Paths[Derived Column Output]"
+              endId="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\LoadStageAgentActsCommissions\DefaultValues.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\LoadStageAgentActsCommissions.Paths[OLE DB Source Output]"
+              endId="Package\LoadStageAgentActsCommissions\DefaultValues.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetUpLastSuccessfullExtraction_period"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{62DA2F5F-8EB5-42DF-8A12-E2CAA6CDEBE5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetUpLastSuccessfullExtraction_period"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="DECLARE @tableName NVARCHAR(250) = N'Stage.AgentActsCommissions'&#xA;&#xA;UPDATE Integration.PackageExecutions&#xA;SET &#xA;  LastSuccessfulExtractionDatetime = CurrentExtractionDateTime,&#xA;  Message = 'success'&#xA;WHERE&#xA;  TableName = @tableName"
+          SQLTask:CodePage="1251" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7A76441B-88AE-4220-889D-B2742428117C}"
+      DTS:From="Package\GetLastSuccesfulLoadDate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadStageAgentActsCommissions" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B266174B-2FCE-408B-A11A-EB1EB1B9C0E7}"
+      DTS:From="Package\LoadStageAgentActsCommissions"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SetUpLastSuccessfullExtraction_period" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\GetLastSuccesfulLoadDate"
+          TopLeft="34,5.5" />
+        <NodeLayout
+          Size="236,42"
+          Id="Package\LoadStageAgentActsCommissions"
+          TopLeft="17.5,107.5" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\SetUpLastSuccessfullExtraction_period"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="135.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="135.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadStageAgentActsCommissions">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions"
+          TopLeft="16,5.5" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\LoadStageAgentActsCommissions\DefaultValues"
+          TopLeft="39,104.5" />
+        <NodeLayout
+          Size="236,42"
+          Id="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package\LoadStageAgentActsCommissions.Paths[OLE DB Source Output]"
+          TopLeft="114.25,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadStageAgentActsCommissions.Paths[Derived Column Output]"
+          TopLeft="111,146.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="12.5,63"
+              Start="0,0"
+              End="12.5,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5"
+                    Point2="0,31.5"
+                    Point3="4,31.5" />
+                  <mssgle:LineSegment
+                    End="8.5,31.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="8.5,31.5"
+                    Point2="12.5,31.5"
+                    Point3="12.5,35.5" />
+                  <mssgle:LineSegment
+                    End="12.5,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageAgentActsCommissions\GetAgentActsCommissions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageAgentActsCommissions\LoadStageAgentActsCommissions">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

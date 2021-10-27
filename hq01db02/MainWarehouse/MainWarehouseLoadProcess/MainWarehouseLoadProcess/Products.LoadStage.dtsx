@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Products LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="24"
-  DTS:VersionGUID="{835DB055-BED9-4842-821D-796BDFEB5E86}">
+  DTS:VersionBuild="30"
+  DTS:VersionGUID="{ADF097EF-636F-49BC-8677-0943884D64DA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -2025,13 +2025,13 @@ WHERE EXISTS
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="144,42"
-          Id="Package\LoadStageProducts\DefaultValues"
-          TopLeft="127,136" />
-        <NodeLayout
           Size="146,42"
           Id="Package\LoadStageProducts\StageProducts"
           TopLeft="130,228" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\LoadStageProducts\DefaultValues"
+          TopLeft="127,136" />
         <NodeLayout
           Size="136,42"
           Id="Package\LoadStageProducts\GetProducts"

@@ -11,12 +11,63 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="LoadLinks"
   DTS:PackageType="5"
-  DTS:VersionBuild="4"
-  DTS:VersionGUID="{C4B06A72-AE3A-4454-A124-6C8718287AB6}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{8CB57A93-8358-4C53-93CE-0A5F467D6C0C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Link_AgentActsProducts"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{EB2606D2-4BA9-4968-8495-4E63E3BE9C8E}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Link_AgentActsProducts"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Link.AgentActsProducts.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Link_AgentActsRealPayments"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{59906BA4-5DCB-4BB1-83FB-A16578938074}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Link_AgentActsRealPayments"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Link.AgentActsRealPayments.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Link_FactAgentActs"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{7ABE4E62-5EC9-4CA6-AF6F-334093070D2E}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Link_FactAgentActs"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Link.FactAgentActs.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Link_FactPaymentPeriods"
       DTS:CreationName="Microsoft.ExecutePackageTask"
@@ -165,39 +216,51 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
           Size="199,42"
           Id="Package\Link_FactPaymentPeriods"
-          TopLeft="60,8" />
+          TopLeft="60,18" />
         <NodeLayout
           Size="164,42"
           Id="Package\Link_FactProducts"
-          TopLeft="60,73.857142857143" />
+          TopLeft="60,83.857142857143" />
         <NodeLayout
           Size="143,42"
           Id="Package\Link_Insurers"
-          TopLeft="60,139.714285714286" />
+          TopLeft="60,149.714285714286" />
         <NodeLayout
           Size="210,42"
           Id="Package\Link_PlanedPaymentPeriods"
-          TopLeft="60,205.571428571429" />
+          TopLeft="60,215.571428571429" />
         <NodeLayout
           Size="213,42"
           Id="Package\Link_PlanedToRealPayments"
-          TopLeft="60,271.428571428571" />
+          TopLeft="60,281.428571428571" />
         <NodeLayout
           Size="199,42"
           Id="Package\Link_ProductsToBranches"
-          TopLeft="60,337.285714285714" />
+          TopLeft="60,347.285714285714" />
         <NodeLayout
           Size="221,42"
           Id="Package\Link_ProgramPlanedPayments"
-          TopLeft="60,403.142857142857" />
+          TopLeft="60,413.142857142857" />
         <NodeLayout
           Size="168,42"
           Id="Package\Link_ProgramsInfo"
-          TopLeft="60,469" />
+          TopLeft="60,479" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Link_FactAgentActs"
+          TopLeft="387,20" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Link_AgentActsProducts"
+          TopLeft="386,85" />
+        <NodeLayout
+          Size="217,42"
+          Id="Package\Link_AgentActsRealPayments"
+          TopLeft="382,141" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

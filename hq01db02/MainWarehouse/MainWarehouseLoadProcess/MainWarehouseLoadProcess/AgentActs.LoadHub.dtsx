@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="AgentActs LoadHub"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{1EFBADBE-0900-4BFE-8000-2DBCC7012AFF}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{1FD23E79-4D4A-44D3-99D2-3DCA98506DCF}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -569,6 +569,10 @@ where [refTable].[HubAgentActId] = ? and [refTable].[AgentActGID] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="113,42"
+          Id="Package\GetFromStage\Lookup"
+          TopLeft="33,107.5" />
+        <NodeLayout
           Size="168,42"
           Id="Package\GetFromStage\GetStageagentActs"
           TopLeft="5.50000000000001,5.5" />
@@ -576,10 +580,6 @@ where [refTable].[HubAgentActId] = ? and [refTable].[AgentActGID] = ?</property>
           Size="121,42"
           Id="Package\GetFromStage\LoadHub"
           TopLeft="29,209.5" />
-        <NodeLayout
-          Size="113,42"
-          Id="Package\GetFromStage\Lookup"
-          TopLeft="33,107.5" />
         <EdgeLayout
           Id="Package\GetFromStage.Paths[OLE DB Source Output]"
           TopLeft="89.5,47.5">
@@ -630,6 +630,29 @@ where [refTable].[HubAgentActId] = ? and [refTable].[AgentActGID] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\GetFromStage\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[AgentActs]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\GetFromStage\GetStageagentActs">
     <Properties>
       <Property>
@@ -647,29 +670,6 @@ where [refTable].[HubAgentActId] = ? and [refTable].[AgentActGID] = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\GetFromStage\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[Hub].[AgentActs]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Link].[FactAgentActs] (
   [LinkFactAgentActsId] [bigint] NOT NULL,
   [HubAgentActId] [bigint] NOT NULL,
-  [HubAgentActCommissionId] [bigint] NOT NULL,
+  [HubAgentActsCommissionId] [bigint] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_FactAgentActs_LinkFactAgentActsId] PRIMARY KEY CLUSTERED ([LinkFactAgentActsId])
@@ -14,5 +14,5 @@ ALTER TABLE [Link].[FactAgentActs]
 GO
 
 ALTER TABLE [Link].[FactAgentActs]
-  ADD CONSTRAINT [FK_FactAgentActs_AgentActsCommissions_HubAgentActsCommissionId] FOREIGN KEY ([HubAgentActCommissionId]) REFERENCES [Hub].[AgentActsCommissions] ([HubAgentActsCommissionId])
+  ADD CONSTRAINT [FK_FactAgentActs_AgentActsCommissions_HubAgentActsCommissionId] FOREIGN KEY ([HubAgentActsCommissionId]) REFERENCES [Hub].[AgentActsCommissions] ([HubAgentActsCommissionId])
 GO

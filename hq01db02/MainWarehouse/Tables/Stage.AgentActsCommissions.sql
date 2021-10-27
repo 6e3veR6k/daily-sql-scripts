@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [Stage].[AgentActsCommissions] (
-  [id] [int] NOT NULL,
+  [id] [bigint] NOT NULL,
   [gid] [uniqueidentifier] NOT NULL,
   [AgentActGID] [uniqueidentifier] NOT NULL,
   [ProductGID] [uniqueidentifier] NOT NULL,
@@ -20,6 +20,8 @@
   [OriginalAgentGID] [uniqueidentifier] NOT NULL,
   [BranchGID] [uniqueidentifier] NULL,
   [AgentPermissionGID] [uniqueidentifier] NULL,
+  [_CreateDateTime] [datetime2] NOT NULL,
+  [_ActionDateTime] [datetime2] NOT NULL,
   [SourceRecordId] [int] NOT NULL,
   [LoadDateTime] [datetime2] NOT NULL,
   CONSTRAINT [PK_AgentActsCommissions_id] PRIMARY KEY CLUSTERED ([id])

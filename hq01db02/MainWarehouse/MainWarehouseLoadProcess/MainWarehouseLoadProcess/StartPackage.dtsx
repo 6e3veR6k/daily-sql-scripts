@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="StartPackage"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{177D6DAC-6F01-49AE-A98B-411AAAB29EDA}">
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{42E67CA2-7904-409B-8BFA-AD090B896DC9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,6 +21,7 @@
       DTS:refId="Package\Load Stages and Hubs"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{5B4991AC-20F6-49F7-8996-C6A4D955768F}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -770,7 +771,7 @@
           PanelSize="579,941"
           Size="579,984"
           Id="Package\Load Stages and Hubs"
-          TopLeft="39,220" />
+          TopLeft="48,46" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

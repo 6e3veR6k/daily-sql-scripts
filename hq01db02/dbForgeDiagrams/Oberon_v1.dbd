@@ -98,8 +98,8 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>-1190 px</X>
-              <Y>-150 px</Y>
+              <X>-880 px</X>
+              <Y>-190 px</Y>
             </Location>
             <Size>
               <Width>271 px</Width>
@@ -129,7 +129,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>228.5 px</Y>
+                  <Y>173.5 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
@@ -141,7 +141,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>68.5 px</Y>
+                  <Y>123.5 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -151,17 +151,7 @@
                 </CustomProperties>
               </Port>
             </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>-639.5 px</X>
-                <Y>78.5 px</Y>
-              </PointD>
-              <PointD>
-                <X>-639.5 px</X>
-                <Y>-71.5 px</Y>
-              </PointD>
-            </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
+            <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>Oberon.dbo.CasesDocuments.FK_CasesDocuments_Cases</Path>
               <TypeName>ForeignKey</TypeName>
@@ -177,8 +167,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-279.5 px</X>
-                  <Y>75 px</Y>
+                  <X>-79.5 px</X>
+                  <Y>0 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Right</Align>
@@ -309,11 +299,11 @@
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>0 px</X>
-                  <Y>148.5 px</Y>
+                  <X>135.5 px</X>
+                  <Y>0 px</Y>
                 </Location>
-                <Anchors>Top Bottom</Anchors>
-                <Align>Right</Align>
+                <Anchors>Left Right</Anchors>
+                <Align>Top</Align>
                 <CustomProperties>
                   <OID>17</OID>
                   <PortType>FloatAnchor</PortType>
@@ -321,11 +311,11 @@
               </Port>
               <Port>
                 <Location>
-                  <X>138.5 px</X>
-                  <Y>0 px</Y>
+                  <X>0 px</X>
+                  <Y>312 px</Y>
                 </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Bottom</Align>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>18</OID>
                   <PortType>FloatAnchor</PortType>
@@ -334,27 +324,11 @@
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>-680.25 px</X>
-                <Y>-1.5 px</Y>
-              </PointD>
-              <PointD>
-                <X>-680.25 px</X>
-                <Y>-230 px</Y>
-              </PointD>
-              <PointD>
-                <X>-680 px</X>
-                <Y>-230 px</Y>
-              </PointD>
-              <PointD>
-                <X>-680 px</X>
-                <Y>-227.75 px</Y>
-              </PointD>
-              <PointD>
-                <X>-441.5 px</X>
-                <Y>-227.75 px</Y>
+                <X>-744.5 px</X>
+                <Y>-558 px</Y>
               </PointD>
             </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
+            <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>Oberon.dbo.CasesDocuments.FK_CasesDocuments_Documents</Path>
               <TypeName>ForeignKey</TypeName>
@@ -370,11 +344,11 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-238.75 px</X>
-                  <Y>114.25 px</Y>
+                  <X>0 px</X>
+                  <Y>184 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Right</Align>
+                <Align>Top</Align>
                 <CustomProperties>
                   <OID>19</OID>
                   <PortType>FixedAnchor</PortType>
@@ -485,8 +459,8 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>410 px</X>
-              <Y>140 px</Y>
+              <X>500 px</X>
+              <Y>330 px</Y>
             </Location>
             <Size>
               <Width>311 px</Width>
@@ -516,7 +490,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>241 px</Y>
+                  <Y>41 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -528,7 +502,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>311 px</Y>
+                  <Y>511 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
@@ -540,12 +514,20 @@
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>370 px</X>
-                <Y>381 px</Y>
+                <X>480 px</X>
+                <Y>371 px</Y>
               </PointD>
               <PointD>
-                <X>370 px</X>
-                <Y>171 px</Y>
+                <X>480 px</X>
+                <Y>343 px</Y>
+              </PointD>
+              <PointD>
+                <X>-140 px</X>
+                <Y>343 px</Y>
+              </PointD>
+              <PointD>
+                <X>-140 px</X>
+                <Y>371 px</Y>
               </PointD>
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
@@ -564,8 +546,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>305 px</X>
-                  <Y>210 px</Y>
+                  <X>330 px</X>
+                  <Y>28 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
@@ -2219,7 +2201,7 @@
               </PointD>
               <PointD>
                 <X>1550 px</X>
-                <Y>591 px</Y>
+                <Y>781 px</Y>
               </PointD>
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
@@ -2238,8 +2220,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>434.5 px</X>
-                  <Y>-380 px</Y>
+                  <X>389.5 px</X>
+                  <Y>-570 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
@@ -2787,10 +2769,10 @@
         </Children>
         <ViewPort>
           <ScaleMode>Free</ScaleMode>
-          <Scale>0.59</Scale>
+          <Scale>0.66</Scale>
           <Location>
-            <X>-1161.01702449364 px</X>
-            <Y>-823.728878326712 px</Y>
+            <X>-1251.51511122 px</X>
+            <Y>-581.818165921202 px</Y>
           </Location>
         </ViewPort>
       </Model>

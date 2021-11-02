@@ -280,6 +280,7 @@
               <Width>316 px</Width>
               <Height>144 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Hub.AgentActsCommissions</Path>
               <TypeName>Table</TypeName>
@@ -303,6 +304,7 @@
               <Width>241 px</Width>
               <Height>144 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Hub.AgentActs</Path>
               <TypeName>Table</TypeName>
@@ -326,6 +328,7 @@
               <Width>276 px</Width>
               <Height>161 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Link.FactAgentActs</Path>
               <TypeName>Table</TypeName>
@@ -389,7 +392,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>0 px</X>
-                  <Y>-69.5 px</Y>
+                  <Y>-139.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Bottom</Align>
@@ -458,7 +461,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>0 px</X>
-                  <Y>33 px</Y>
+                  <Y>94.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Top</Align>
@@ -487,6 +490,7 @@
               <Width>240 px</Width>
               <Height>161 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Link.AgentActsProducts</Path>
               <TypeName>Table</TypeName>
@@ -511,7 +515,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>45 px</Y>
+                  <Y>5.59006211180124 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -536,7 +540,7 @@
             <BendPoints>
               <PointD>
                 <X>990 px</X>
-                <Y>525 px</Y>
+                <Y>485.590062111801 px</Y>
               </PointD>
               <PointD>
                 <X>990 px</X>
@@ -560,7 +564,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>95 px</X>
-                  <Y>1.4285888671875 px</Y>
+                  <Y>-37.9813490210113 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
@@ -590,7 +594,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>100.5 px</Y>
+                  <Y>12.4844720496894 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
@@ -602,7 +606,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>60.5 px</Y>
+                  <Y>8.40277777777778 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -612,6 +616,16 @@
                 </CustomProperties>
               </Port>
             </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>1270 px</X>
+                <Y>492.484472049689 px</Y>
+              </PointD>
+              <PointD>
+                <X>1270 px</X>
+                <Y>528.402777777778 px</Y>
+              </PointD>
+            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>MainWarehouse.Link.AgentActsProducts.FK_AgentActsProducts_AgentActsCommissions_HubAgentActsCommissionId</Path>
@@ -628,8 +642,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-100 px</X>
-                  <Y>0 px</Y>
+                  <X>-110 px</X>
+                  <Y>-35.9182989464043 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Right</Align>
@@ -658,6 +672,7 @@
               <Width>261 px</Width>
               <Height>144 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Hub.RealPayments</Path>
               <TypeName>Table</TypeName>
@@ -681,6 +696,7 @@
               <Width>289 px</Width>
               <Height>161 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Link.AgentActsRealPayments</Path>
               <TypeName>Table</TypeName>
@@ -705,7 +721,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>57 px</Y>
+                  <Y>7.08074534161491 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
@@ -717,7 +733,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>87 px</Y>
+                  <Y>12.0833333333333 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -730,11 +746,11 @@
             <BendPoints>
               <PointD>
                 <X>2189 px</X>
-                <Y>577 px</Y>
+                <Y>527.080745341615 px</Y>
               </PointD>
               <PointD>
                 <X>2189 px</X>
-                <Y>597 px</Y>
+                <Y>522.083333333333 px</Y>
               </PointD>
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
@@ -754,7 +770,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>-75.5 px</X>
-                  <Y>-20 px</Y>
+                  <Y>4.99743235333369 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Right</Align>
@@ -784,7 +800,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>50.5 px</Y>
+                  <Y>6.27329192546584 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -796,7 +812,7 @@
               <Port>
                 <Location>
                   <X>0 px</X>
-                  <Y>75.6 px</Y>
+                  <Y>10.5 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
@@ -809,11 +825,11 @@
             <BendPoints>
               <PointD>
                 <X>1860 px</X>
-                <Y>570.5 px</Y>
+                <Y>526.273291925466 px</Y>
               </PointD>
               <PointD>
                 <X>1860 px</X>
-                <Y>595.6 px</Y>
+                <Y>530.5 px</Y>
               </PointD>
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
@@ -833,7 +849,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>67 px</X>
-                  <Y>-25.0999755859375 px</Y>
+                  <Y>-4.22670807453414 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
@@ -880,13 +896,12 @@
             </CustomProperties>
             <Location>
               <X>600 px</X>
-              <Y>890 px</Y>
+              <Y>760 px</Y>
             </Location>
             <Size>
               <Width>241 px</Width>
               <Height>144 px</Height>
             </Size>
-            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Hub.Programs</Path>
               <TypeName>Table</TypeName>
@@ -903,8 +918,8 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>590 px</X>
-              <Y>640 px</Y>
+              <X>580 px</X>
+              <Y>650 px</Y>
             </Location>
             <Size>
               <Width>221 px</Width>
@@ -959,7 +974,7 @@
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>715.5 px</X>
+                <X>705.5 px</X>
                 <Y>620 px</Y>
               </PointD>
               <PointD>
@@ -983,8 +998,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>20 px</X>
-                  <Y>64.5 px</Y>
+                  <X>10 px</X>
+                  <Y>74.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Top</Align>
@@ -1013,7 +1028,7 @@
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>145.5 px</X>
+                  <X>120.5 px</X>
                   <Y>0 px</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
@@ -1025,7 +1040,7 @@
               </Port>
               <Port>
                 <Location>
-                  <X>75.5 px</X>
+                  <X>100.5 px</X>
                   <Y>0 px</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
@@ -1036,16 +1051,6 @@
                 </CustomProperties>
               </Port>
             </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>735.5 px</X>
-                <Y>821 px</Y>
-              </PointD>
-              <PointD>
-                <X>675.5 px</X>
-                <Y>821 px</Y>
-              </PointD>
-            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>MainWarehouse.Link.FactProducts.FK_ProductPrograms_Programs_HubProgramId</Path>
@@ -1063,7 +1068,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>0 px</X>
-                  <Y>-80 px</Y>
+                  <Y>-44.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Bottom</Align>
@@ -1156,7 +1161,7 @@
               <Port xsi:type="LinkPort">
                 <Location>
                   <X>0 px</X>
-                  <Y>24.5 px</Y>
+                  <Y>28 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Top</Align>
@@ -1257,13 +1262,14 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>420 px</X>
-              <Y>1120 px</Y>
+              <X>140 px</X>
+              <Y>500 px</Y>
             </Location>
             <Size>
               <Width>265 px</Width>
               <Height>161 px</Height>
             </Size>
+            <IsCollapsed>true</IsCollapsed>
             <DbOid>
               <Path>MainWarehouse.Link.FactPaymentPeriods</Path>
               <TypeName>Table</TypeName>
@@ -1287,11 +1293,11 @@
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>222.5 px</X>
-                  <Y>0 px</Y>
+                  <X>0 px</X>
+                  <Y>15.5 px</Y>
                 </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Top</Align>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>77</OID>
                   <PortType>FloatAnchor</PortType>
@@ -1299,35 +1305,17 @@
               </Port>
               <Port>
                 <Location>
-                  <X>42.5 px</X>
-                  <Y>0 px</Y>
+                  <X>0 px</X>
+                  <Y>5.5 px</Y>
                 </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Bottom</Align>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
                 <CustomProperties>
                   <OID>78</OID>
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>642.5 px</X>
-                <Y>1100 px</Y>
-              </PointD>
-              <PointD>
-                <X>581 px</X>
-                <Y>1100 px</Y>
-              </PointD>
-              <PointD>
-                <X>581 px</X>
-                <Y>551 px</Y>
-              </PointD>
-              <PointD>
-                <X>642.5 px</X>
-                <Y>551 px</Y>
-              </PointD>
-            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>MainWarehouse.Link.FactPaymentPeriods.FK_FactPaymentPeriods_Products_HubProductId</Path>
@@ -1344,13 +1332,272 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>61.5 px</X>
-                  <Y>294.5 px</Y>
+                  <X>-97.5 px</X>
+                  <Y>0 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Top</Align>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>79</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>22 px</X>
+              <Y>2 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>80</OID>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <Location>
+              <X>760 px</X>
+              <Y>1170 px</Y>
+            </Location>
+            <Size>
+              <Width>290 px</Width>
+              <Height>603 px</Height>
+            </Size>
+            <DbOid>
+              <Path>MainWarehouse.Stage.Cases</Path>
+              <TypeName>Table</TypeName>
+            </DbOid>
+            <Compartments>
+              <ConstraintsCollapsed>True</ConstraintsCollapsed>
+              <IndexesCollapsed>True</IndexesCollapsed>
+              <TriggersCollapsed>True</TriggersCollapsed>
+            </Compartments>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>81</OID>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <Location>
+              <X>1110 px</X>
+              <Y>1190 px</Y>
+            </Location>
+            <Size>
+              <Width>255 px</Width>
+              <Height>297 px</Height>
+            </Size>
+            <DbOid>
+              <Path>MainWarehouse.Stage.Covers</Path>
+              <TypeName>Table</TypeName>
+            </DbOid>
+            <Compartments>
+              <ConstraintsCollapsed>True</ConstraintsCollapsed>
+              <IndexesCollapsed>True</IndexesCollapsed>
+              <TriggersCollapsed>True</TriggersCollapsed>
+            </Compartments>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>82</OID>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <Location>
+              <X>1380 px</X>
+              <Y>750 px</Y>
+            </Location>
+            <Size>
+              <Width>241 px</Width>
+              <Height>144 px</Height>
+            </Size>
+            <DbOid>
+              <Path>MainWarehouse.Hub.Cases</Path>
+              <TypeName>Table</TypeName>
+            </DbOid>
+            <Compartments>
+              <ConstraintsCollapsed>True</ConstraintsCollapsed>
+              <IndexesCollapsed>True</IndexesCollapsed>
+              <TriggersCollapsed>True</TriggersCollapsed>
+            </Compartments>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>83</OID>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <Location>
+              <X>160 px</X>
+              <Y>230 px</Y>
+            </Location>
+            <Size>
+              <Width>208 px</Width>
+              <Height>161 px</Height>
+            </Size>
+            <DbOid>
+              <Path>MainWarehouse.Link.Insurers</Path>
+              <TypeName>Table</TypeName>
+            </DbOid>
+            <Compartments>
+              <ConstraintsCollapsed>True</ConstraintsCollapsed>
+              <IndexesCollapsed>True</IndexesCollapsed>
+              <TriggersCollapsed>True</TriggersCollapsed>
+            </Compartments>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
+              <OID>84</OID>
+              <Comment>85</Comment>
+              <OutModel>83</OutModel>
+              <InModel>1</InModel>
+              <OutPort>86</OutPort>
+              <InPort>87</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>80.5 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Right</Align>
+                <CustomProperties>
+                  <OID>86</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>60 px</X>
+                  <Y>0 px</Y>
+                </Location>
+                <Anchors>Left Right</Anchors>
+                <Align>Top</Align>
+                <CustomProperties>
+                  <OID>87</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>660 px</X>
+                <Y>310.5 px</Y>
+              </PointD>
+            </BendPoints>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>MainWarehouse.Link.Insurers.FK_Insurers_Products_HubProductId</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>85</OID>
+              <HolderModel>84</HolderModel>
+              <Port>88</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>-146 px</X>
+                  <Y>0 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Right</Align>
+                <CustomProperties>
+                  <OID>88</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>22 px</X>
+              <Y>2 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>89</OID>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <Location>
+              <X>-220 px</X>
+              <Y>110 px</Y>
+            </Location>
+            <Size>
+              <Width>241 px</Width>
+              <Height>144 px</Height>
+            </Size>
+            <DbOid>
+              <Path>MainWarehouse.Hub.Faces</Path>
+              <TypeName>Table</TypeName>
+            </DbOid>
+            <Compartments>
+              <ConstraintsCollapsed>True</ConstraintsCollapsed>
+              <IndexesCollapsed>True</IndexesCollapsed>
+              <TriggersCollapsed>True</TriggersCollapsed>
+            </Compartments>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
+              <OID>90</OID>
+              <Comment>91</Comment>
+              <OutModel>83</OutModel>
+              <InModel>89</InModel>
+              <OutPort>92</OutPort>
+              <InPort>93</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>12 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>92</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>132 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Right</Align>
+                <CustomProperties>
+                  <OID>93</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>MainWarehouse.Link.Insurers.FK_Insurers_Faces_HubFaceId</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>91</OID>
+              <HolderModel>90</HolderModel>
+              <Port>94</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>69.5 px</X>
+                  <Y>0 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>94</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
@@ -1366,8 +1613,8 @@
           <ScaleMode>Free</ScaleMode>
           <Scale>0.7</Scale>
           <Location>
-            <X>645.714296710735 px</X>
-            <Y>-241.428595212041 px</Y>
+            <X>-541.428608028256 px</X>
+            <Y>-51.4285741144296 px</Y>
           </Location>
         </ViewPort>
       </Model>

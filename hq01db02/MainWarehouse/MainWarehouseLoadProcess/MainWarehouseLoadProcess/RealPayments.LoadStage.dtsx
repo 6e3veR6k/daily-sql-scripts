@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="RealPayments LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{AD6F9587-C45D-4ABE-9356-F4413981E55F}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{9ADA0522-826F-4401-8389-05A6D4F8B40B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -236,8 +236,8 @@ WHERE EXISTS
               <connections>
                 <connection
                   refId="Package\LoadStageRealPayments\GetRealPayments.Connections[OleDbConnection]"
-                  connectionManagerID="{6AA792AA-834B-481F-90D5-3C6A1A68822A}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[MainServerIdentity]"
+                  connectionManagerID="{D00A5521-0A55-4DA4-B0BF-763ADB4EB562}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[HimaliaProduction]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -285,25 +285,6 @@ WHERE EXISTS
                       scale="2"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
-                      length="500"
-                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
-                      name="Comment"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
-                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
-                      name="IsCommission"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
                       dataType="bool"
                       errorOrTruncationOperation="Conversion"
@@ -311,24 +292,6 @@ WHERE EXISTS
                       externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
                       lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
                       name="Deleted"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
-                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
-                      name="IsAutomatic"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
-                      dataType="guid"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
-                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
-                      name="SourceTypeGID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
@@ -357,6 +320,43 @@ WHERE EXISTS
                       lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
                       name="_ActionDate"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      length="500"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
+                      name="Comment"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
+                      name="IsCommission"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
+                      name="IsAutomatic"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      name="SourceTypeGID"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -379,26 +379,9 @@ WHERE EXISTS
                       precision="18"
                       scale="2" />
                     <externalMetadataColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
-                      dataType="wstr"
-                      length="500"
-                      name="Comment" />
-                    <externalMetadataColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
-                      dataType="bool"
-                      name="IsCommission" />
-                    <externalMetadataColumn
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
                       dataType="bool"
                       name="Deleted" />
-                    <externalMetadataColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
-                      dataType="bool"
-                      name="IsAutomatic" />
-                    <externalMetadataColumn
-                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
-                      dataType="guid"
-                      name="SourceTypeGID" />
                     <externalMetadataColumn
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
                       dataType="guid"
@@ -411,6 +394,23 @@ WHERE EXISTS
                       refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
                       dataType="dbTimeStamp"
                       name="_ActionDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      dataType="wstr"
+                      length="500"
+                      name="Comment" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
+                      dataType="bool"
+                      name="IsCommission" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
+                      dataType="bool"
+                      name="IsAutomatic" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      dataType="guid"
+                      name="SourceTypeGID" />
                   </externalMetadataColumns>
                 </output>
                 <output

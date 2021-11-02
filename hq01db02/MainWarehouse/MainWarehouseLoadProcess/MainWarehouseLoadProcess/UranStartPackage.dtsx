@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="UranStartPackage"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{49FA424A-3ACF-4C8F-A11D-7658EA1E1DBB}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{23882028-C9BF-4A77-B3E9-71F11C003A9E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,6 +21,7 @@
       DTS:refId="Package\Cases_LoadHub"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Execute Package Task"
+      DTS:Disabled="True"
       DTS:DTSID="{9928AF03-4302-4528-96D0-5BE5AAE195F4}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
@@ -30,6 +31,7 @@
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
+          <PackageName>Cases.LoadHub.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>

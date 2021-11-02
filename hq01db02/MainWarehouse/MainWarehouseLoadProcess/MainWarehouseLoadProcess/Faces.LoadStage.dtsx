@@ -1,0 +1,1943 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/27/2021 3:31:32 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{9A781E93-40B2-43AD-9BF0-FCA9763D6100}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Faces LoadStage"
+  DTS:PackageType="5"
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{A2A053E1-103A-4905-B643-2F22D5586955}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[hq01db01.Metis]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9EC60B98-2436-434B-BA04-91437B85377B}"
+      DTS:ObjectName="hq01db01.Metis">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Package::MainServerIdentity_dbName_Metis]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Package::MainServerIdentity_Metis_ServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=hq01db01;Initial Catalog=Metis;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{EE52D384-AC42-4C10-82A6-223FBE96A321}"
+      DTS:ObjectName="MainServerIdentity_dbName_Metis"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Metis</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{7BCBF7D1-3A41-498D-813E-DFB3FCDAED54}"
+      DTS:ObjectName="MainServerIdentity_Metis_ServerName"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">hq01db01</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{83607533-E96E-4932-B6DA-9C830DF449E6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="dbName">
+      <DTS:VariableValue
+        DTS:DataType="8">Metis</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9D8DF004-1209-4F6A-AF52-339C7E454497}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtCE_Faces">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2011</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BC8AAAF0-1AF5-4C63-A9BD-364558214818}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtLSE_Faces">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{69B09080-7934-4086-BBA3-2970EAC3C570}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ServerName">
+      <DTS:VariableValue
+        DTS:DataType="8">hq01db01</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\GetLastSuccesfulLoadDate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A1EA31E0-32C2-4D5C-A868-023D84F886E9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="GetLastSuccesfulLoadDate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="EXEC [Integration].[sp_GetExtractionPeriod] @tableName = N'Stage.Faces'"
+          SQLTask:CodePage="1251"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastSuccessfulExtractionDatetime"
+            SQLTask:DtsVariableName="User::dtLSE_Faces" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="CurrentExtractionDateTime"
+            SQLTask:DtsVariableName="User::dtCE_Faces" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadStageFaces"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{77177781-CD48-487D-9BB8-A9BFC1E9895D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadStageFaces"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadStageFaces\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LoadStageFaces\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\LoadStageFaces\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::CurrentExtractionDateTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::CurrentExtractionDateTime]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[SourceLoadId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[SourceLoadId]"
+                      name="SourceLoadId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::SourceLoadId]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::SourceLoadId]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\LoadStageFaces\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageFaces\GetFaces"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetFaces"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[Faces] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[Faces] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[Faces]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0:Input",{BC8AAAF0-1AF5-4C63-A9BD-364558214818};"1:Input",{9D8DF004-1209-4F6A-AF52-339C7E454497};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageFaces\GetFaces.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[hq01db01.Metis]"
+                  connectionManagerRefId="Package.ConnectionManagers[hq01db01.Metis]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[gid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[gid]"
+                      name="gid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PersonTypeID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PersonTypeID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PersonTypeID]"
+                      name="PersonTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IdentificationCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IdentificationCode]"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IdentificationCode]"
+                      name="IdentificationCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Profession]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Profession]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Profession]"
+                      name="Profession"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActualAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ActualAddress]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActualAddress]"
+                      name="ActualAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PhoneNumber]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumber]"
+                      name="PhoneNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Fax]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Fax]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Fax]"
+                      name="Fax"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AdditionalContactInfo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[AdditionalContactInfo]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AdditionalContactInfo]"
+                      name="AdditionalContactInfo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      length="130"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Email]"
+                      name="Email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostAddressGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PostAddressGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostAddressGID]"
+                      name="PostAddressGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostActualAddressGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PostActualAddressGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostActualAddressGID]"
+                      name="PostActualAddressGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActivityGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ActivityGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActivityGID]"
+                      name="ActivityGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullNameEnglish]"
+                      codePage="1251"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FullNameEnglish]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullNameEnglish]"
+                      name="FullNameEnglish"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WebAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[WebAddress]"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WebAddress]"
+                      name="WebAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumberAdditional]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PhoneNumberAdditional]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumberAdditional]"
+                      name="PhoneNumberAdditional"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[MobilePhoneNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[MobilePhoneNumber]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[MobilePhoneNumber]"
+                      name="MobilePhoneNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[HomePhoneNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[HomePhoneNumber]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[HomePhoneNumber]"
+                      name="HomePhoneNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WorkPhoneNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[WorkPhoneNumber]"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WorkPhoneNumber]"
+                      name="WorkPhoneNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullName]"
+                      name="FullName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ParentGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ParentGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ParentGID]"
+                      name="ParentGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[EDRPOU]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[EDRPOU]"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[EDRPOU]"
+                      name="EDRPOU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsResponsible]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsResponsible]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsResponsible]"
+                      name="IsResponsible"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Firstname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Firstname]"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Firstname]"
+                      name="Firstname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Secondname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Secondname]"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Secondname]"
+                      name="Secondname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Lastname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Lastname]"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Lastname]"
+                      name="Lastname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsMan]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsMan]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsMan]"
+                      name="IsMan"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Birthdate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Birthdate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Birthdate]"
+                      name="Birthdate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[DriverFrom]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[DriverFrom]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[DriverFrom]"
+                      name="DriverFrom"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitiveName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[GenitiveName]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitiveName]"
+                      name="GenitiveName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitivePost]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[GenitivePost]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitivePost]"
+                      name="GenitivePost"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Post]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Post]"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Post]"
+                      name="Post"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FaceID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FaceID]"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FaceID]"
+                      name="FaceID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsSanction]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsSanction]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsSanction]"
+                      name="IsSanction"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsPEP]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsPEP]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsPEP]"
+                      name="IsPEP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[RiskGroupID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[RiskGroupID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[RiskGroupID]"
+                      name="RiskGroupID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="i8"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PersonTypeID]"
+                      dataType="i8"
+                      name="PersonTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IdentificationCode]"
+                      dataType="wstr"
+                      length="15"
+                      name="IdentificationCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Profession]"
+                      dataType="wstr"
+                      length="255"
+                      name="Profession" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ActualAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ActualAddress" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="PhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Fax]"
+                      dataType="wstr"
+                      length="30"
+                      name="Fax" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[AdditionalContactInfo]"
+                      dataType="wstr"
+                      length="255"
+                      name="AdditionalContactInfo" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="130"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PostAddressGID]"
+                      dataType="guid"
+                      name="PostAddressGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PostActualAddressGID]"
+                      dataType="guid"
+                      name="PostActualAddressGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ActivityGID]"
+                      dataType="guid"
+                      name="ActivityGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FullNameEnglish]"
+                      codePage="1251"
+                      dataType="str"
+                      length="255"
+                      name="FullNameEnglish" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[WebAddress]"
+                      dataType="wstr"
+                      length="50"
+                      name="WebAddress" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[PhoneNumberAdditional]"
+                      dataType="wstr"
+                      length="30"
+                      name="PhoneNumberAdditional" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[MobilePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="MobilePhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[HomePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="HomePhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[WorkPhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="WorkPhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FullName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[ParentGID]"
+                      dataType="guid"
+                      name="ParentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[EDRPOU]"
+                      dataType="wstr"
+                      length="15"
+                      name="EDRPOU" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsResponsible]"
+                      dataType="bool"
+                      name="IsResponsible" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Firstname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Firstname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Secondname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Secondname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Lastname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Lastname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsMan]"
+                      dataType="bool"
+                      name="IsMan" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Birthdate]"
+                      dataType="dbTimeStamp"
+                      name="Birthdate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[DriverFrom]"
+                      dataType="i4"
+                      name="DriverFrom" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[GenitiveName]"
+                      dataType="wstr"
+                      length="255"
+                      name="GenitiveName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[GenitivePost]"
+                      dataType="wstr"
+                      length="255"
+                      name="GenitivePost" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[Post]"
+                      dataType="wstr"
+                      length="255"
+                      name="Post" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[FaceID]"
+                      dataType="wstr"
+                      length="15"
+                      name="FaceID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsSanction]"
+                      dataType="bool"
+                      name="IsSanction" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[IsPEP]"
+                      dataType="bool"
+                      name="IsPEP" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[RiskGroupID]"
+                      dataType="i8"
+                      name="RiskGroupID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="i8"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      name="gid" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PersonTypeID]"
+                      dataType="i8"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PersonTypeID]"
+                      name="PersonTypeID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IdentificationCode]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IdentificationCode]"
+                      name="IdentificationCode" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Profession]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Profession]"
+                      name="Profession" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      name="Address" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ActualAddress]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ActualAddress]"
+                      name="ActualAddress" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PhoneNumber]"
+                      name="PhoneNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Fax]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Fax]"
+                      name="Fax" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[AdditionalContactInfo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[AdditionalContactInfo]"
+                      name="AdditionalContactInfo" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      dataType="wstr"
+                      length="130"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      name="Email" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PostAddressGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PostAddressGID]"
+                      name="PostAddressGID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PostActualAddressGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PostActualAddressGID]"
+                      name="PostActualAddressGID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ActivityGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ActivityGID]"
+                      name="ActivityGID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FullNameEnglish]"
+                      codePage="1251"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FullNameEnglish]"
+                      name="FullNameEnglish" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[WebAddress]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[WebAddress]"
+                      name="WebAddress" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PhoneNumberAdditional]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[PhoneNumberAdditional]"
+                      name="PhoneNumberAdditional" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[MobilePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[MobilePhoneNumber]"
+                      name="MobilePhoneNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[HomePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[HomePhoneNumber]"
+                      name="HomePhoneNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[WorkPhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[WorkPhoneNumber]"
+                      name="WorkPhoneNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      name="FullName" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ParentGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ParentGID]"
+                      name="ParentGID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[EDRPOU]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[EDRPOU]"
+                      name="EDRPOU" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsResponsible]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsResponsible]"
+                      name="IsResponsible" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Firstname]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Firstname]"
+                      name="Firstname" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Secondname]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Secondname]"
+                      name="Secondname" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Lastname]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Lastname]"
+                      name="Lastname" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsMan]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsMan]"
+                      name="IsMan" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Birthdate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Birthdate]"
+                      name="Birthdate" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[DriverFrom]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[DriverFrom]"
+                      name="DriverFrom" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[GenitiveName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[GenitiveName]"
+                      name="GenitiveName" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[GenitivePost]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[GenitivePost]"
+                      name="GenitivePost" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Post]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[Post]"
+                      name="Post" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FaceID]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[FaceID]"
+                      name="FaceID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsSanction]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsSanction]"
+                      name="IsSanction" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsPEP]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[IsPEP]"
+                      name="IsPEP" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[RiskGroupID]"
+                      dataType="i8"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[RiskGroupID]"
+                      name="RiskGroupID" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageFaces\LoadStageFaces"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="LoadStageFaces"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[Faces]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageFaces\LoadStageFaces.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i8"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[gid]"
+                      cachedDataType="guid"
+                      cachedName="gid"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[gid]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[PersonTypeID]"
+                      cachedDataType="i8"
+                      cachedName="PersonTypeID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PersonTypeID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PersonTypeID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[IdentificationCode]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="IdentificationCode"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IdentificationCode]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IdentificationCode]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Profession]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Profession"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Profession]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Profession]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Address]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Address"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Address]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[ActualAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ActualAddress"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ActualAddress]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActualAddress]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[PhoneNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="PhoneNumber"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PhoneNumber]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Fax]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="Fax"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Fax]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Fax]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[AdditionalContactInfo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="AdditionalContactInfo"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[AdditionalContactInfo]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AdditionalContactInfo]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Email]"
+                      cachedDataType="wstr"
+                      cachedLength="130"
+                      cachedName="Email"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Email]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[PostAddressGID]"
+                      cachedDataType="guid"
+                      cachedName="PostAddressGID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PostAddressGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostAddressGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[PostActualAddressGID]"
+                      cachedDataType="guid"
+                      cachedName="PostActualAddressGID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PostActualAddressGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PostActualAddressGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[ActivityGID]"
+                      cachedDataType="guid"
+                      cachedName="ActivityGID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ActivityGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ActivityGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[FullNameEnglish]"
+                      cachedCodepage="1251"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="FullNameEnglish"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FullNameEnglish]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullNameEnglish]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[WebAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="WebAddress"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[WebAddress]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WebAddress]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[PhoneNumberAdditional]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="PhoneNumberAdditional"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PhoneNumberAdditional]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[PhoneNumberAdditional]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[MobilePhoneNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="MobilePhoneNumber"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[MobilePhoneNumber]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[MobilePhoneNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[HomePhoneNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="HomePhoneNumber"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[HomePhoneNumber]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[HomePhoneNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[WorkPhoneNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="WorkPhoneNumber"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[WorkPhoneNumber]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[WorkPhoneNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[FullName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FullName"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FullName]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[ParentGID]"
+                      cachedDataType="guid"
+                      cachedName="ParentGID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ParentGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[ParentGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[EDRPOU]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="EDRPOU"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[EDRPOU]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[EDRPOU]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[IsResponsible]"
+                      cachedDataType="bool"
+                      cachedName="IsResponsible"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsResponsible]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsResponsible]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Firstname]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Firstname"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Firstname]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Firstname]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Secondname]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Secondname"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Secondname]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Secondname]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Lastname]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Lastname"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Lastname]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Lastname]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[IsMan]"
+                      cachedDataType="bool"
+                      cachedName="IsMan"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsMan]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsMan]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Birthdate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Birthdate"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Birthdate]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Birthdate]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[DriverFrom]"
+                      cachedDataType="i4"
+                      cachedName="DriverFrom"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[DriverFrom]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[DriverFrom]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[GenitiveName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="GenitiveName"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GenitiveName]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitiveName]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[GenitivePost]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="GenitivePost"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GenitivePost]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[GenitivePost]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[Post]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Post"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Post]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[Post]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[FaceID]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="FaceID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FaceID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[FaceID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[AuthorGID]"
+                      cachedDataType="guid"
+                      cachedName="AuthorGID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[AuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[IsSanction]"
+                      cachedDataType="bool"
+                      cachedName="IsSanction"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsSanction]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsSanction]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[IsPEP]"
+                      cachedDataType="bool"
+                      cachedName="IsPEP"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsPEP]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[IsPEP]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[RiskGroupID]"
+                      cachedDataType="i8"
+                      cachedName="RiskGroupID"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[RiskGroupID]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[RiskGroupID]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="date"
+                      cachedName="LoadDateTime"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[SourceLoadId]"
+                      cachedDataType="i4"
+                      cachedName="SourceLoadId"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output].Columns[SourceLoadId]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GID]"
+                      dataType="guid"
+                      name="GID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PersonTypeID]"
+                      dataType="i8"
+                      name="PersonTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IdentificationCode]"
+                      dataType="wstr"
+                      length="15"
+                      name="IdentificationCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Profession]"
+                      dataType="wstr"
+                      length="255"
+                      name="Profession" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ActualAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ActualAddress" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="PhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Fax]"
+                      dataType="wstr"
+                      length="30"
+                      name="Fax" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[AdditionalContactInfo]"
+                      dataType="wstr"
+                      length="255"
+                      name="AdditionalContactInfo" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="130"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PostAddressGID]"
+                      dataType="guid"
+                      name="PostAddressGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PostActualAddressGID]"
+                      dataType="guid"
+                      name="PostActualAddressGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ActivityGID]"
+                      dataType="guid"
+                      name="ActivityGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FullNameEnglish]"
+                      codePage="1251"
+                      dataType="str"
+                      length="255"
+                      name="FullNameEnglish" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[WebAddress]"
+                      dataType="wstr"
+                      length="50"
+                      name="WebAddress" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[PhoneNumberAdditional]"
+                      dataType="wstr"
+                      length="30"
+                      name="PhoneNumberAdditional" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[MobilePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="MobilePhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[HomePhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="HomePhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[WorkPhoneNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="WorkPhoneNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FullName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[ParentGID]"
+                      dataType="guid"
+                      name="ParentGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[EDRPOU]"
+                      dataType="wstr"
+                      length="15"
+                      name="EDRPOU" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsResponsible]"
+                      dataType="bool"
+                      name="IsResponsible" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Firstname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Firstname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Secondname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Secondname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Lastname]"
+                      dataType="wstr"
+                      length="50"
+                      name="Lastname" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsMan]"
+                      dataType="bool"
+                      name="IsMan" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Birthdate]"
+                      dataType="dbTimeStamp"
+                      name="Birthdate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[DriverFrom]"
+                      dataType="i4"
+                      name="DriverFrom" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GenitiveName]"
+                      dataType="wstr"
+                      length="255"
+                      name="GenitiveName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[GenitivePost]"
+                      dataType="wstr"
+                      length="255"
+                      name="GenitivePost" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[Post]"
+                      dataType="wstr"
+                      length="255"
+                      name="Post" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[FaceID]"
+                      dataType="wstr"
+                      length="15"
+                      name="FaceID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsSanction]"
+                      dataType="bool"
+                      name="IsSanction" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[IsPEP]"
+                      dataType="bool"
+                      name="IsPEP" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[RiskGroupID]"
+                      dataType="i8"
+                      name="RiskGroupID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageFaces\LoadStageFaces.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\LoadStageFaces.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageFaces\LoadStageFaces.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageFaces\LoadStageFaces.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadStageFaces.Paths[Derived Column Output]"
+              endId="Package\LoadStageFaces\LoadStageFaces.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\LoadStageFaces\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\LoadStageFaces.Paths[OLE DB Source Output]"
+              endId="Package\LoadStageFaces\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadStageFaces\GetFaces.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetUpLastSuccessfullExtraction_period"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5322AF6F-6836-4D61-94AD-4C9D04376D6B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetUpLastSuccessfullExtraction_period"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="UPDATE&#xA;  Integration.PackageExecutions&#xA;SET&#xA;  LastSuccessfulExtractionDatetime = CurrentExtractionDateTime,&#xA;  Message = 'success'&#xA;WHERE&#xA;  TableName = 'Stage.Faces'"
+          SQLTask:CodePage="1251" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{AF44ED6B-0343-4BFD-9C3B-CCD67ABA8A3D}"
+      DTS:From="Package\GetLastSuccesfulLoadDate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadStageFaces" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{BE46DE16-D70B-47B3-B255-21B15A742EC9}"
+      DTS:From="Package\LoadStageFaces"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SetUpLastSuccessfullExtraction_period" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\GetLastSuccesfulLoadDate"
+          TopLeft="34,5.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\LoadStageFaces"
+          TopLeft="58,107.5" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\SetUpLastSuccessfullExtraction_period"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="135.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="135.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadStageFaces">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="155,42"
+          Id="Package\LoadStageFaces\LoadStageFaces"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\LoadStageFaces\Derived Column"
+          TopLeft="6.00000000000003,107.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\LoadStageFaces\GetFaces"
+          TopLeft="22,5.5" />
+        <EdgeLayout
+          Id="Package\LoadStageFaces.Paths[OLE DB Source Output]"
+          TopLeft="83,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadStageFaces.Paths[Derived Column Output]"
+          TopLeft="83,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageFaces\LoadStageFaces">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageFaces\GetFaces">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

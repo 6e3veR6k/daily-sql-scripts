@@ -1,0 +1,975 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/29/2021 10:29:04 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{3F2BCCB8-CEBA-4DC0-B06A-58F351C6FD89}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="RealPayments LoadStage"
+  DTS:PackageType="5"
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{9ADA0522-826F-4401-8389-05A6D4F8B40B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{66170DE8-88F7-4E75-8EDB-52B712127B2A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtCE_RealPayments">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2011</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5CB35364-3106-452F-82D8-91A66C8E5A55}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtLSE_RealPayments">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\GetLastSuccesfulLoadDate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FFC87CF7-9EA2-4897-83CB-986B2228E0FE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="GetLastSuccesfulLoadDate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="EXEC [Integration].[sp_GetExtractionPeriod] @tableName = N'Stage.RealPayments'"
+          SQLTask:CodePage="1251"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastSuccessfulExtractionDatetime"
+            SQLTask:DtsVariableName="User::dtLSE_RealPayments" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="CurrentExtractionDateTime"
+            SQLTask:DtsVariableName="User::dtCE_RealPayments" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadStageRealPayments"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{34D0EB06-158E-4471-B2A4-B9E3F29AA37E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadStageRealPayments"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadStageRealPayments\DefaultValues"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DefaultValues"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LoadStageRealPayments\DefaultValues.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\LoadStageRealPayments\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::SourceLoadId]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::SourceLoadId]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::CurrentExtractionDateTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::CurrentExtractionDateTime]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\LoadStageRealPayments\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageRealPayments\GetRealPayments"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetRealPayments"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[RealPayments] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[RealPayments] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[RealPayments]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0:Input",{5CB35364-3106-452F-82D8-91A66C8E5A55};"1:Input",{66170DE8-88F7-4E75-8EDB-52B712127B2A};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageRealPayments\GetRealPayments.Connections[OleDbConnection]"
+                  connectionManagerID="{D00A5521-0A55-4DA4-B0BF-763ADB4EB562}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[HimaliaProduction]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[gid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[gid]"
+                      name="gid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[PaymentDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[PaymentDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[PaymentDate]"
+                      name="PaymentDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      length="500"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]"
+                      name="Comment"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]"
+                      name="IsCommission"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]"
+                      name="IsAutomatic"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      name="SourceTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="i8"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[PaymentDate]"
+                      dataType="dbDate"
+                      name="PaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Value]"
+                      dataType="numeric"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      dataType="wstr"
+                      length="500"
+                      name="Comment" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsCommission]"
+                      dataType="bool"
+                      name="IsCommission" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[IsAutomatic]"
+                      dataType="bool"
+                      name="IsAutomatic" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      dataType="guid"
+                      name="SourceTypeGID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="i8"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      name="gid" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
+                      dataType="dbDate"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
+                      name="PaymentDate" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      dataType="numeric"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Value]"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Comment]"
+                      dataType="wstr"
+                      length="500"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Comment]"
+                      name="Comment" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[IsCommission]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[IsCommission]"
+                      name="IsCommission" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[IsAutomatic]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[IsAutomatic]"
+                      name="IsAutomatic" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
+                      name="SourceTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageRealPayments\StageRealPayments"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="StageRealPayments"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[RealPayments]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageRealPayments\StageRealPayments.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i8"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[gid]"
+                      cachedDataType="guid"
+                      cachedName="gid"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[GID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[gid]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[PaymentDate]"
+                      cachedDataType="dbDate"
+                      cachedName="PaymentDate"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[PaymentDate]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[PaymentDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[Value]"
+                      cachedDataType="numeric"
+                      cachedName="Value"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Value]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Value]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[Comment]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="Comment"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Comment]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Comment]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[IsCommission]"
+                      cachedDataType="bool"
+                      cachedName="IsCommission"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[IsCommission]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsCommission]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[Deleted]"
+                      cachedDataType="bool"
+                      cachedName="Deleted"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[Deleted]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[IsAutomatic]"
+                      cachedDataType="bool"
+                      cachedName="IsAutomatic"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[IsAutomatic]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[IsAutomatic]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[SourceTypeGID]"
+                      cachedDataType="guid"
+                      cachedName="SourceTypeGID"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceTypeGID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[SourceTypeGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[AuthorGID]"
+                      cachedDataType="guid"
+                      cachedName="AuthorGID"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[AuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="date"
+                      cachedName="LoadDateTime"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[GID]"
+                      dataType="guid"
+                      name="GID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[PaymentDate]"
+                      dataType="dbDate"
+                      name="PaymentDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Value]"
+                      dataType="numeric"
+                      name="Value"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Comment]"
+                      dataType="wstr"
+                      length="500"
+                      name="Comment" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[IsCommission]"
+                      dataType="bool"
+                      name="IsCommission" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[IsAutomatic]"
+                      dataType="bool"
+                      name="IsAutomatic" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceTypeGID]"
+                      dataType="guid"
+                      name="SourceTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageRealPayments\StageRealPayments.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\StageRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageRealPayments\StageRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageRealPayments\StageRealPayments.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadStageRealPayments.Paths[Derived Column Output]"
+              endId="Package\LoadStageRealPayments\StageRealPayments.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\LoadStageRealPayments\DefaultValues.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\LoadStageRealPayments.Paths[OLE DB Source Output]"
+              endId="Package\LoadStageRealPayments\DefaultValues.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadStageRealPayments\GetRealPayments.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetUpLastSuccessfullExtraction_period"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{59F8F786-5B3B-4D05-B0CD-632132D1A66C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetUpLastSuccessfullExtraction_period"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="UPDATE&#xA;  Integration.PackageExecutions&#xA;SET&#xA;  LastSuccessfulExtractionDatetime = CurrentExtractionDateTime,&#xA;  Message = 'success'&#xA;WHERE&#xA;  TableName = 'Stage.RealPayments'"
+          SQLTask:CodePage="1251" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{56542597-7442-470F-A26C-274688662295}"
+      DTS:From="Package\GetLastSuccesfulLoadDate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadStageRealPayments" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{CD8177D8-7F1B-4182-8AAB-95071EDC6FA0}"
+      DTS:From="Package\LoadStageRealPayments"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SetUpLastSuccessfullExtraction_period" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\GetLastSuccesfulLoadDate"
+          TopLeft="34,5.5" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\LoadStageRealPayments"
+          TopLeft="38.5,107.5" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\SetUpLastSuccessfullExtraction_period"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="135.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="135.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadStageRealPayments">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\LoadStageRealPayments\StageRealPayments"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\LoadStageRealPayments\DefaultValues"
+          TopLeft="14,107.5" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\LoadStageRealPayments\GetRealPayments"
+          TopLeft="16,5.5" />
+        <EdgeLayout
+          Id="Package\LoadStageRealPayments.Paths[OLE DB Source Output]"
+          TopLeft="96.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5,60"
+              Start="0,0"
+              End="-10.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-6.49999999999999,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.49999999999999,30"
+                    Point2="-10.5,30"
+                    Point3="-10.5,34" />
+                  <mssgle:LineSegment
+                    End="-10.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadStageRealPayments.Paths[Derived Column Output]"
+          TopLeft="88.75,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageRealPayments\StageRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageRealPayments\GetRealPayments">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

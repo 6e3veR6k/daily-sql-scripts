@@ -1,0 +1,1444 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/27/2021 10:43:04 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{E7ACF919-F864-4D7F-821E-5D53B169CCB1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Cases LoadStage"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{53C9F33A-35F6-4277-9F05-650F19C09D18}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AC2AA485-2C18-44DD-BD37-AC9EE2C1CE73}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtCE_Cases">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{05B7B336-4A8F-423E-A62B-D0FDC5ECF5E5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="dtLSE_Cases">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2010</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\GetLastSuccesfulLoadDate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{03CB5179-D308-4760-8A08-4A09E548A783}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="GetLastSuccesfulLoadDate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="EXEC [Integration].[sp_GetExtractionPeriod] @tableName = N'Stage.Cases'"
+          SQLTask:CodePage="1251"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="LastSuccessfulExtractionDatetime"
+            SQLTask:DtsVariableName="User::dtLSE_Cases" />
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="CurrentExtractionDateTime"
+            SQLTask:DtsVariableName="User::dtCE_Cases" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadStageCases"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1CC1B713-A2C7-4596-831C-96A19C4CFA72}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadStageCases"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadStageCases\DefaultValues"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DefaultValues"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\LoadStageCases\DefaultValues.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\LoadStageCases\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::SourceLoadId]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::SourceLoadId]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Project::CurrentExtractionDateTime]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Project::CurrentExtractionDateTime]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\LoadStageCases\DefaultValues.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageCases\GetCases"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="GetCases"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DECLARE @LastExecutionDateTime DATETIME2 = ?
+DECLARE @CurentExecutionDateTime DATETIME2 = ?
+
+
+SELECT src.* ,lg.[_CreateDate], lg.[_ActionDate] 
+FROM [dbo].[Cases] AS src 
+CROSS APPLY 
+	(SELECT MIN(L.ActionDate) AS [_CreateDate], MAX(L.ActionDate) AS [_ActionDate] 
+	FROM [log].[Cases] AS L 
+	WHERE L.LoggedEntityGID = src.gid 
+	GROUP BY L.LoggedEntityGID) AS lg 
+WHERE EXISTS 
+	(SELECT 1 FROM [log].[Cases]  AS [log] 
+	WHERE [log].LoggedEntityGID = src.gid 
+		AND ([log].ActionDate &gt; @LastExecutionDateTime AND [log].ActionDate &lt;= @CurentExecutionDateTime))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0:Input",{05B7B336-4A8F-423E-A62B-D0FDC5ECF5E5};"1:Input",{AC2AA485-2C18-44DD-BD37-AC9EE2C1CE73};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageCases\GetCases.Connections[OleDbConnection]"
+                  connectionManagerID="{6AA792AA-834B-481F-90D5-3C6A1A68822A}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MainServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[gid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[gid]"
+                      name="gid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Number]"
+                      length="255"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Number]"
+                      name="Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InnerNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InnerNumber]"
+                      length="50"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InnerNumber]"
+                      name="InnerNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ClaimTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ClaimTypeGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ClaimTypeGID]"
+                      name="ClaimTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[StatusGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[StatusGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[StatusGID]"
+                      name="StatusGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ResponsibleGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ResponsibleGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ResponsibleGID]"
+                      name="ResponsibleGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Year]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Year]"
+                      name="Year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[EventGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[EventGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[EventGID]"
+                      name="EventGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      name="BranchGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[IsRegressPossible]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[IsRegressPossible]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[IsRegressPossible]"
+                      name="IsRegressPossible"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AddDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddDate]"
+                      name="AddDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddUserGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AddUserGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddUserGID]"
+                      name="AddUserGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PinCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[PinCode]"
+                      length="7"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PinCode]"
+                      name="PinCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Executor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Executor]"
+                      length="255"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Executor]"
+                      name="Executor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ForumTopicGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ForumTopicGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ForumTopicGID]"
+                      name="ForumTopicGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[WorkflowGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[WorkflowGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[WorkflowGID]"
+                      name="WorkflowGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      name="PolisNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredName]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InsuredName]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredName]"
+                      name="InsuredName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredObjectName]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InsuredObjectName]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredObjectName]"
+                      name="InsuredObjectName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantFaceNames]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ParticipantFaceNames]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantFaceNames]"
+                      name="ParticipantFaceNames"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantObjectNames]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ParticipantObjectNames]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantObjectNames]"
+                      name="ParticipantObjectNames"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedAuthorGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedAuthorGID]"
+                      name="LastModifiedAuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedDate]"
+                      name="LastModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[CreateDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[CreateDate]"
+                      name="CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_CreateDate]"
+                      name="_CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_ActionDate]"
+                      name="_ActionDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="i8"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Number]"
+                      dataType="wstr"
+                      length="255"
+                      name="Number" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InnerNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="InnerNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ClaimTypeGID]"
+                      dataType="guid"
+                      name="ClaimTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[StatusGID]"
+                      dataType="guid"
+                      name="StatusGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ResponsibleGID]"
+                      dataType="guid"
+                      name="ResponsibleGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[EventGID]"
+                      dataType="guid"
+                      name="EventGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      dataType="guid"
+                      name="BranchGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[IsRegressPossible]"
+                      dataType="bool"
+                      name="IsRegressPossible" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AddDate]"
+                      dataType="dbTimeStamp"
+                      name="AddDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AddUserGID]"
+                      dataType="guid"
+                      name="AddUserGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[PinCode]"
+                      dataType="wstr"
+                      length="7"
+                      name="PinCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Executor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Executor" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ForumTopicGID]"
+                      dataType="guid"
+                      name="ForumTopicGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[WorkflowGID]"
+                      dataType="guid"
+                      name="WorkflowGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      dataType="nText"
+                      name="PolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InsuredName]"
+                      dataType="nText"
+                      name="InsuredName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[InsuredObjectName]"
+                      dataType="nText"
+                      name="InsuredObjectName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ParticipantFaceNames]"
+                      dataType="nText"
+                      name="ParticipantFaceNames" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[ParticipantObjectNames]"
+                      dataType="nText"
+                      name="ParticipantObjectNames" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      name="LastModifiedAuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="LastModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="_CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].ExternalColumns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      name="_ActionDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="i8"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[gid]"
+                      name="gid" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Number]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Number]"
+                      name="Number" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InnerNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InnerNumber]"
+                      name="InnerNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ClaimTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ClaimTypeGID]"
+                      name="ClaimTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[StatusGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[StatusGID]"
+                      name="StatusGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ResponsibleGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ResponsibleGID]"
+                      name="ResponsibleGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      name="Year" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[EventGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[EventGID]"
+                      name="EventGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      name="BranchGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[IsRegressPossible]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[IsRegressPossible]"
+                      name="IsRegressPossible" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AddDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AddDate]"
+                      name="AddDate" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AddUserGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AddUserGID]"
+                      name="AddUserGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[PinCode]"
+                      dataType="wstr"
+                      length="7"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[PinCode]"
+                      name="PinCode" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Executor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Executor]"
+                      name="Executor" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ForumTopicGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ForumTopicGID]"
+                      name="ForumTopicGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[WorkflowGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[WorkflowGID]"
+                      name="WorkflowGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      dataType="nText"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      name="PolisNumber" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InsuredName]"
+                      dataType="nText"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InsuredName]"
+                      name="InsuredName" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InsuredObjectName]"
+                      dataType="nText"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[InsuredObjectName]"
+                      name="InsuredObjectName" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ParticipantFaceNames]"
+                      dataType="nText"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ParticipantFaceNames]"
+                      name="ParticipantFaceNames" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ParticipantObjectNames]"
+                      dataType="nText"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ParticipantObjectNames]"
+                      name="ParticipantObjectNames" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[LastModifiedAuthorGID]"
+                      name="LastModifiedAuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[LastModifiedDate]"
+                      name="LastModifiedDate" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[CreateDate]"
+                      name="CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
+                      name="_CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[_ActionDate]"
+                      name="_ActionDate" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadStageCases\StageCases"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="StageCases"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[Cases]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadStageCases\StageCases.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i8"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[gid]"
+                      cachedDataType="guid"
+                      cachedName="gid"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[gid]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[gid]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[Number]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Number"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Number]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Number]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[InnerNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="InnerNumber"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InnerNumber]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InnerNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[ClaimTypeGID]"
+                      cachedDataType="guid"
+                      cachedName="ClaimTypeGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ClaimTypeGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ClaimTypeGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[StatusGID]"
+                      cachedDataType="guid"
+                      cachedName="StatusGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[StatusGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[StatusGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[ResponsibleGID]"
+                      cachedDataType="guid"
+                      cachedName="ResponsibleGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ResponsibleGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ResponsibleGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[Year]"
+                      cachedDataType="i4"
+                      cachedName="Year"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Year]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Year]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[EventGID]"
+                      cachedDataType="guid"
+                      cachedName="EventGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[EventGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[EventGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[BranchGID]"
+                      cachedDataType="guid"
+                      cachedName="BranchGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[BranchGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[BranchGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[IsRegressPossible]"
+                      cachedDataType="bool"
+                      cachedName="IsRegressPossible"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[IsRegressPossible]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[IsRegressPossible]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[AddDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="AddDate"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AddDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[AddUserGID]"
+                      cachedDataType="guid"
+                      cachedName="AddUserGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AddUserGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AddUserGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[PinCode]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="PinCode"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[PinCode]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PinCode]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[Executor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Executor"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Executor]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Executor]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[ForumTopicGID]"
+                      cachedDataType="guid"
+                      cachedName="ForumTopicGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ForumTopicGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ForumTopicGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[AuthorGID]"
+                      cachedDataType="guid"
+                      cachedName="AuthorGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[AuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[WorkflowGID]"
+                      cachedDataType="guid"
+                      cachedName="WorkflowGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[WorkflowGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[WorkflowGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[PolisNumber]"
+                      cachedDataType="nText"
+                      cachedName="PolisNumber"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[PolisNumber]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[PolisNumber]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[InsuredName]"
+                      cachedDataType="nText"
+                      cachedName="InsuredName"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InsuredName]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredName]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[InsuredObjectName]"
+                      cachedDataType="nText"
+                      cachedName="InsuredObjectName"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InsuredObjectName]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[InsuredObjectName]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[ParticipantFaceNames]"
+                      cachedDataType="nText"
+                      cachedName="ParticipantFaceNames"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ParticipantFaceNames]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantFaceNames]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[ParticipantObjectNames]"
+                      cachedDataType="nText"
+                      cachedName="ParticipantObjectNames"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ParticipantObjectNames]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[ParticipantObjectNames]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[LastModifiedAuthorGID]"
+                      cachedDataType="guid"
+                      cachedName="LastModifiedAuthorGID"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedAuthorGID]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedAuthorGID]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[LastModifiedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LastModifiedDate"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[LastModifiedDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[Deleted]"
+                      cachedDataType="bool"
+                      cachedName="Deleted"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[Deleted]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CreateDate"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[CreateDate]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="date"
+                      cachedName="LoadDateTime"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[_CreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_CreateDate"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_CreateDate]" />
+                    <inputColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].Columns[_ActionDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="_ActionDate"
+                      externalMetadataColumnId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output].Columns[_ActionDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i8"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[gid]"
+                      dataType="guid"
+                      name="gid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Number]"
+                      dataType="wstr"
+                      length="255"
+                      name="Number" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InnerNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="InnerNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ClaimTypeGID]"
+                      dataType="guid"
+                      name="ClaimTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[StatusGID]"
+                      dataType="guid"
+                      name="StatusGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ResponsibleGID]"
+                      dataType="guid"
+                      name="ResponsibleGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[EventGID]"
+                      dataType="guid"
+                      name="EventGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[BranchGID]"
+                      dataType="guid"
+                      name="BranchGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[IsRegressPossible]"
+                      dataType="bool"
+                      name="IsRegressPossible" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AddDate]"
+                      dataType="dbTimeStamp"
+                      name="AddDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AddUserGID]"
+                      dataType="guid"
+                      name="AddUserGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[PinCode]"
+                      dataType="wstr"
+                      length="7"
+                      name="PinCode" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Executor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Executor" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ForumTopicGID]"
+                      dataType="guid"
+                      name="ForumTopicGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[WorkflowGID]"
+                      dataType="guid"
+                      name="WorkflowGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[PolisNumber]"
+                      dataType="nText"
+                      name="PolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InsuredName]"
+                      dataType="nText"
+                      name="InsuredName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[InsuredObjectName]"
+                      dataType="nText"
+                      name="InsuredObjectName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ParticipantFaceNames]"
+                      dataType="nText"
+                      name="ParticipantFaceNames" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[ParticipantObjectNames]"
+                      dataType="nText"
+                      name="ParticipantObjectNames" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      name="LastModifiedAuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="LastModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadStageCases\StageCases.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadStageCases\StageCases.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\StageCases.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadStageCases\StageCases.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadStageCases\StageCases.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadStageCases.Paths[Derived Column Output]"
+              endId="Package\LoadStageCases\StageCases.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\LoadStageCases\DefaultValues.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\LoadStageCases.Paths[OLE DB Source Output]"
+              endId="Package\LoadStageCases\DefaultValues.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadStageCases\GetCases.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SetUpLastSuccessfullExtraction_period"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{31903776-96D3-4996-8122-853EF0BDCD3A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SetUpLastSuccessfullExtraction_period"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{598B82FC-EA5E-496E-B879-95887625FD78}"
+          SQLTask:SqlStatementSource="UPDATE&#xA;  Integration.PackageExecutions&#xA;SET&#xA;  LastSuccessfulExtractionDatetime = CurrentExtractionDateTime,&#xA;  Message = 'success'&#xA;WHERE&#xA;  TableName = 'Stage.Cases'"
+          SQLTask:CodePage="1251" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6489D02D-49E4-4285-B72F-F5B8481C3795}"
+      DTS:From="Package\GetLastSuccesfulLoadDate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadStageCases" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{246DD285-CEA4-4F01-B7DC-C7BF58B2152C}"
+      DTS:From="Package\LoadStageCases"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SetUpLastSuccessfullExtraction_period" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\GetLastSuccesfulLoadDate"
+          TopLeft="34,5.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\LoadStageCases"
+          TopLeft="58,107.5" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\SetUpLastSuccessfullExtraction_period"
+          TopLeft="5.50000000000003,209.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="135.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="135.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadStageCases">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="122,42"
+          Id="Package\LoadStageCases\GetCases"
+          TopLeft="16.5,5.5" />
+        <NodeLayout
+          Size="133,42"
+          Id="Package\LoadStageCases\StageCases"
+          TopLeft="11,209.5" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\LoadStageCases\DefaultValues"
+          TopLeft="5.50000000000003,107.5" />
+        <EdgeLayout
+          Id="Package\LoadStageCases.Paths[OLE DB Source Output]"
+          TopLeft="77.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadStageCases.Paths[Derived Column Output]"
+          TopLeft="77.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageCases\GetCases">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadStageCases\StageCases">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

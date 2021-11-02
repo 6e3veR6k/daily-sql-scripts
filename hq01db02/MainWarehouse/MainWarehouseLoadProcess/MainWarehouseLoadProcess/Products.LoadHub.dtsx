@@ -1,0 +1,1599 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/22/2021 4:08:06 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HQ00-5028-E8658"
+  DTS:CreatorName="ORANTA\bezvershuk_do"
+  DTS:DTSID="{5F45696A-EFF5-4294-B63D-167362E1C47A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Products LoadHub"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{FBA5491A-4DB3-4585-9CC5-94AF6ACA67DD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadProductHub"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{60A25678-E673-49DA-89EA-DC40D9061947}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadProductHub"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadProductHub\InsertIntoHub"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="InsertIntoHub"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Hub].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadProductHub\InsertIntoHub.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].Columns[SourceRecordId]"
+                      cachedDataType="i4"
+                      cachedName="SourceRecordId"
+                      externalMetadataColumnId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SourceRecordId]" />
+                    <inputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].Columns[LoadDateTime]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="LoadDateTime"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LoadDateTime]" />
+                    <inputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[HubProductId]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      externalMetadataColumnId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[ProductGid]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[GID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[HubProductId]"
+                      dataType="i8"
+                      name="HubProductId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[ProductGid]"
+                      dataType="guid"
+                      name="ProductGid" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadProductHub\InsertIntoHub.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\InsertIntoHub.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\InsertIntoHub.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\InsertIntoHub.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadProductHub\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Hub].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Hub].[Products]) [refTable]
+where [refTable].[HubProductId] = ? and [refTable].[ProductGid] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="HubProductId" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductGid" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SourceRecordId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LoadDateTime" dataType="DT_DBTIMESTAMP2" length="0" precision="0" scale="7" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Id]};#{Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[GID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadProductHub\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadProductHub\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadProductHub\Lookup.Inputs[Lookup Input].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">HubProductId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\LoadProductHub\Lookup.Inputs[Lookup Input].Columns[GID]"
+                      cachedDataType="guid"
+                      cachedName="GID"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[GID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ProductGid</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadProductHub\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\LoadProductHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadProductHub\Lookup.Outputs[Lookup Match Output].Columns[HubProductId]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadProductHub\Lookup.Outputs[Lookup Match Output].Columns[HubProductId]"
+                      name="HubProductId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">HubProductId</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadProductHub\Lookup.Outputs[Lookup Match Output].Columns[ProductGid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\LoadProductHub\Lookup.Outputs[Lookup Match Output].Columns[ProductGid]"
+                      name="ProductGid"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ProductGid</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadProductHub\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\LoadProductHub\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\LoadProductHub\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\LoadProductHub\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadProductHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadProductHub\StageProducts"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="StageProducts"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Stage].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadProductHub\StageProducts.Connections[OleDbConnection]"
+                  connectionManagerID="{598B82FC-EA5E-496E-B879-95887625FD78}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WarehouseServerIdentity]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[GID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[GID]"
+                      name="GID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductTypeGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductTypeGID]"
+                      name="ProductTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[PolisNumber]"
+                      name="PolisNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BranchGID]"
+                      name="BranchGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ResponsibleGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ResponsibleGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ResponsibleGID]"
+                      name="ResponsibleGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Number]"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Number]"
+                      name="Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsProlonged]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsProlonged]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsProlonged]"
+                      name="IsProlonged"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsAction]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsAction]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsAction]"
+                      name="IsAction"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BeginingDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BeginingDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BeginingDate]"
+                      name="BeginingDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[EndingDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[EndingDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[EndingDate]"
+                      name="EndingDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[RegisteredDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[RegisteredDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[RegisteredDate]"
+                      name="RegisteredDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[DurationUnitGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[DurationUnitGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[DurationUnitGID]"
+                      name="DurationUnitGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AgentReportDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AgentReportDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AgentReportDate]"
+                      name="AgentReportDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AgentReportNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AgentReportNumber]"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AgentReportNumber]"
+                      name="AgentReportNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerGID]"
+                      name="InsurerGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsuranceSumUkr]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsuranceSumUkr]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsuranceSumUkr]"
+                      name="InsuranceSumUkr"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Comment]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      length="255"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Comment]"
+                      name="Comment"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[Deleted]"
+                      name="Deleted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SupplementaryAgreementTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SupplementaryAgreementTypeGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SupplementaryAgreementTypeGID]"
+                      name="SupplementaryAgreementTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BaseProductGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BaseProductGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BaseProductGID]"
+                      name="BaseProductGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ContractGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ContractGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ContractGID]"
+                      name="ContractGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SourceTypeGID]"
+                      name="SourceTypeGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[StatusGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[StatusGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[StatusGID]"
+                      name="StatusGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsEditable]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsEditable]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsEditable]"
+                      name="IsEditable"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsFull]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsFull]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsFull]"
+                      name="IsFull"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedAuthorGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LastModifiedAuthorGID]"
+                      name="LastModifiedAuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductActionGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductActionGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductActionGID]"
+                      name="ProductActionGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductPartnerActionGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductPartnerActionGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ProductPartnerActionGID]"
+                      name="ProductPartnerActionGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[CreatorUserGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[CreatorUserGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[CreatorUserGID]"
+                      name="CreatorUserGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[AuthorGID]"
+                      name="AuthorGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[CreateDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[CreateDate]"
+                      name="CreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LastModifiedDate]"
+                      name="LastModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SalesChannelGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SalesChannelGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SalesChannelGID]"
+                      name="SalesChannelGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[EntranceIntoForceGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[EntranceIntoForceGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[EntranceIntoForceGID]"
+                      name="EntranceIntoForceGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsInwardsReinsurance]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsInwardsReinsurance]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsInwardsReinsurance]"
+                      name="IsInwardsReinsurance"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BasePayment]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BasePayment]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BasePayment]"
+                      name="BasePayment"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsReinsured]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsReinsured]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[IsReinsured]"
+                      name="IsReinsured"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ReinsurancePolisNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ReinsurancePolisNumber]"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[ReinsurancePolisNumber]"
+                      name="ReinsurancePolisNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SelectDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SelectDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SelectDate]"
+                      name="SelectDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[OnSaveDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[OnSaveDate]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[OnSaveDate]"
+                      name="OnSaveDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[WorkflowGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[WorkflowGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[WorkflowGID]"
+                      name="WorkflowGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[OwnerGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[OwnerGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[OwnerGID]"
+                      name="OwnerGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[DealGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[DealGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[DealGID]"
+                      name="DealGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SubSalesChannelGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SubSalesChannelGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SubSalesChannelGID]"
+                      name="SubSalesChannelGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BasedOnProductGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BasedOnProductGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[BasedOnProductGID]"
+                      name="BasedOnProductGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFaceGID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFaceGID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFaceGID]"
+                      name="InsurerFaceGID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFacePersonTypeID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFacePersonTypeID]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFacePersonTypeID]"
+                      name="InsurerFacePersonTypeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFaceName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFaceName]"
+                      length="255"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[InsurerFaceName]"
+                      name="InsurerFaceName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[SourceRecordId]"
+                      name="SourceRecordId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[GID]"
+                      dataType="guid"
+                      name="GID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductTypeGID]"
+                      dataType="guid"
+                      name="ProductTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[PolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="PolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BranchGID]"
+                      dataType="guid"
+                      name="BranchGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ResponsibleGID]"
+                      dataType="guid"
+                      name="ResponsibleGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Number]"
+                      dataType="wstr"
+                      length="50"
+                      name="Number" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsProlonged]"
+                      dataType="bool"
+                      name="IsProlonged" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsAction]"
+                      dataType="bool"
+                      name="IsAction" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BeginingDate]"
+                      dataType="dbTimeStamp"
+                      name="BeginingDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[EndingDate]"
+                      dataType="dbTimeStamp"
+                      name="EndingDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[RegisteredDate]"
+                      dataType="dbDate"
+                      name="RegisteredDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[DurationUnitGID]"
+                      dataType="guid"
+                      name="DurationUnitGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AgentReportDate]"
+                      dataType="dbTimeStamp"
+                      name="AgentReportDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AgentReportNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="AgentReportNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerGID]"
+                      dataType="guid"
+                      name="InsurerGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsuranceSumUkr]"
+                      dataType="numeric"
+                      name="InsuranceSumUkr"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
+                      dataType="wstr"
+                      length="255"
+                      name="Comment" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[Deleted]"
+                      dataType="bool"
+                      name="Deleted" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SupplementaryAgreementTypeGID]"
+                      dataType="guid"
+                      name="SupplementaryAgreementTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BaseProductGID]"
+                      dataType="guid"
+                      name="BaseProductGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ContractGID]"
+                      dataType="guid"
+                      name="ContractGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SourceTypeGID]"
+                      dataType="guid"
+                      name="SourceTypeGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[StatusGID]"
+                      dataType="guid"
+                      name="StatusGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsEditable]"
+                      dataType="bool"
+                      name="IsEditable" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsFull]"
+                      dataType="bool"
+                      name="IsFull" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      name="LastModifiedAuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductActionGID]"
+                      dataType="guid"
+                      name="ProductActionGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ProductPartnerActionGID]"
+                      dataType="guid"
+                      name="ProductPartnerActionGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[CreatorUserGID]"
+                      dataType="guid"
+                      name="CreatorUserGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[AuthorGID]"
+                      dataType="guid"
+                      name="AuthorGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      name="CreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="LastModifiedDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SalesChannelGID]"
+                      dataType="guid"
+                      name="SalesChannelGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[EntranceIntoForceGID]"
+                      dataType="guid"
+                      name="EntranceIntoForceGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsInwardsReinsurance]"
+                      dataType="bool"
+                      name="IsInwardsReinsurance" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BasePayment]"
+                      dataType="numeric"
+                      name="BasePayment"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[IsReinsured]"
+                      dataType="bool"
+                      name="IsReinsured" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[ReinsurancePolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      name="ReinsurancePolisNumber" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SelectDate]"
+                      dataType="dbTimeStamp"
+                      name="SelectDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[OnSaveDate]"
+                      dataType="dbTimeStamp"
+                      name="OnSaveDate" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[WorkflowGID]"
+                      dataType="guid"
+                      name="WorkflowGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[OwnerGID]"
+                      dataType="guid"
+                      name="OwnerGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[DealGID]"
+                      dataType="guid"
+                      name="DealGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SubSalesChannelGID]"
+                      dataType="guid"
+                      name="SubSalesChannelGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[BasedOnProductGID]"
+                      dataType="guid"
+                      name="BasedOnProductGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFaceGID]"
+                      dataType="guid"
+                      name="InsurerFaceGID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFacePersonTypeID]"
+                      dataType="i8"
+                      name="InsurerFacePersonTypeID" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[InsurerFaceName]"
+                      dataType="wstr"
+                      length="255"
+                      name="InsurerFaceName" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[SourceRecordId]"
+                      dataType="i4"
+                      name="SourceRecordId" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output].ExternalColumns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      name="_ActionDateTime"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i8"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[GID]"
+                      name="GID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductTypeGID]"
+                      name="ProductTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[PolisNumber]"
+                      name="PolisNumber" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BranchGID]"
+                      name="BranchGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ResponsibleGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ResponsibleGID]"
+                      name="ResponsibleGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Number]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Number]"
+                      name="Number" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsProlonged]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsProlonged]"
+                      name="IsProlonged" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsAction]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsAction]"
+                      name="IsAction" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BeginingDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BeginingDate]"
+                      name="BeginingDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[EndingDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[EndingDate]"
+                      name="EndingDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[RegisteredDate]"
+                      dataType="dbDate"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[RegisteredDate]"
+                      name="RegisteredDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[DurationUnitGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[DurationUnitGID]"
+                      name="DurationUnitGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AgentReportDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AgentReportDate]"
+                      name="AgentReportDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AgentReportNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AgentReportNumber]"
+                      name="AgentReportNumber" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerGID]"
+                      name="InsurerGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsuranceSumUkr]"
+                      dataType="numeric"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsuranceSumUkr]"
+                      name="InsuranceSumUkr"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Comment]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Comment]"
+                      name="Comment" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[Deleted]"
+                      name="Deleted" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SupplementaryAgreementTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SupplementaryAgreementTypeGID]"
+                      name="SupplementaryAgreementTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BaseProductGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BaseProductGID]"
+                      name="BaseProductGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ContractGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ContractGID]"
+                      name="ContractGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SourceTypeGID]"
+                      name="SourceTypeGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[StatusGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[StatusGID]"
+                      name="StatusGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsEditable]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsEditable]"
+                      name="IsEditable" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsFull]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsFull]"
+                      name="IsFull" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LastModifiedAuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LastModifiedAuthorGID]"
+                      name="LastModifiedAuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductActionGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductActionGID]"
+                      name="ProductActionGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductPartnerActionGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ProductPartnerActionGID]"
+                      name="ProductPartnerActionGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[CreatorUserGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[CreatorUserGID]"
+                      name="CreatorUserGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[AuthorGID]"
+                      name="AuthorGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[CreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[CreateDate]"
+                      name="CreateDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LastModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LastModifiedDate]"
+                      name="LastModifiedDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SalesChannelGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SalesChannelGID]"
+                      name="SalesChannelGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[EntranceIntoForceGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[EntranceIntoForceGID]"
+                      name="EntranceIntoForceGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsInwardsReinsurance]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsInwardsReinsurance]"
+                      name="IsInwardsReinsurance" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BasePayment]"
+                      dataType="numeric"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BasePayment]"
+                      name="BasePayment"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsReinsured]"
+                      dataType="bool"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[IsReinsured]"
+                      name="IsReinsured" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ReinsurancePolisNumber]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ReinsurancePolisNumber]"
+                      name="ReinsurancePolisNumber" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SelectDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SelectDate]"
+                      name="SelectDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[OnSaveDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[OnSaveDate]"
+                      name="OnSaveDate" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[WorkflowGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[WorkflowGID]"
+                      name="WorkflowGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[OwnerGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[OwnerGID]"
+                      name="OwnerGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[DealGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[DealGID]"
+                      name="DealGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SubSalesChannelGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SubSalesChannelGID]"
+                      name="SubSalesChannelGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BasedOnProductGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[BasedOnProductGID]"
+                      name="BasedOnProductGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceGID]"
+                      dataType="guid"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceGID]"
+                      name="InsurerFaceGID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFacePersonTypeID]"
+                      dataType="i8"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFacePersonTypeID]"
+                      name="InsurerFacePersonTypeID" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[InsurerFaceName]"
+                      name="InsurerFaceName" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_CreateDateTime]"
+                      name="_CreateDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[_ActionDateTime]"
+                      name="_ActionDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[SourceRecordId]"
+                      name="SourceRecordId" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[LoadDateTime]"
+                      name="LoadDateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadProductHub.Paths[Lookup No Match Output]"
+              endId="Package\LoadProductHub\InsertIntoHub.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\LoadProductHub\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\LoadProductHub.Paths[OLE DB Source Output]"
+              endId="Package\LoadProductHub\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\LoadProductHub\StageProducts.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\LoadProductHub"
+          TopLeft="110,98" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadProductHub">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\LoadProductHub\Lookup"
+          TopLeft="188,127" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\LoadProductHub\InsertIntoHub"
+          TopLeft="173,219" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\LoadProductHub\StageProducts"
+          TopLeft="171,50" />
+        <EdgeLayout
+          Id="Package\LoadProductHub.Paths[OLE DB Source Output]"
+          TopLeft="244.25,92">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadProductHub.Paths[Lookup No Match Output]"
+          TopLeft="245,169">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,15.4453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadProductHub\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Hub].[Products]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadProductHub\InsertIntoHub">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadProductHub\StageProducts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

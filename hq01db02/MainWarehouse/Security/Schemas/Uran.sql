@@ -1,0 +1,2 @@
+﻿CREATE SCHEMA [Uran] AUTHORIZATION [dbo]
+GO

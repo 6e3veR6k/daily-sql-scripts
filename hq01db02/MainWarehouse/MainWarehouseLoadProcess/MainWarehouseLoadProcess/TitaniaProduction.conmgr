@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
-  DTS:ObjectName="MetisProduction"
-  DTS:DTSID="{8679912F-CA8B-4031-8FFB-FD92D1F65771}"
+  DTS:ObjectName="TitaniaProduction"
+  DTS:DTSID="{AE68AACA-AE81-4C3F-854C-823BECB07178}"
   DTS:CreationName="OLEDB">
   <DTS:PropertyExpression
     DTS:Name="ServerName">@[$Project::ProductionServer]</DTS:PropertyExpression>
@@ -9,6 +9,6 @@
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
       DTS:ConnectRetryInterval="5"
-      DTS:ConnectionString="Data Source=hq01db01;Initial Catalog=Metis;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      DTS:ConnectionString="Data Source=hq01db01;Initial Catalog=Titania;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
   </DTS:ObjectData>
 </DTS:ConnectionManager>

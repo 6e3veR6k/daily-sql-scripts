@@ -3,6 +3,8 @@
   DTS:ObjectName="CallistoProduction"
   DTS:DTSID="{8F4A992F-8A2E-4BA4-A47C-234A2246512B}"
   DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::ProductionServer]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"

@@ -3,6 +3,8 @@
   DTS:ObjectName="OberonProduction"
   DTS:DTSID="{85708D88-999E-4A99-B032-4FF9446665DD}"
   DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::ProductionServer]</DTS:PropertyExpression>
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"

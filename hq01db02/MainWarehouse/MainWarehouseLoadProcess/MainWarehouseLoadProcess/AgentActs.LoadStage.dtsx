@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="AgentActs LoadStage"
   DTS:PackageType="5"
-  DTS:VersionBuild="18"
-  DTS:VersionGUID="{79D74FF5-16D5-4A91-9BF3-0BB31EB8EFE5}">
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{6FEA5E40-A35D-4666-9B5E-0A39222C58D0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -348,15 +348,6 @@ WHERE EXISTS
                       name="WorkflowGID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].Columns[Period]"
-                      dataType="dbDate"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].ExternalColumns[Period]"
-                      lineageId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].Columns[Period]"
-                      name="Period"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].Columns[_CreateDate]"
                       dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversion"
@@ -421,10 +412,6 @@ WHERE EXISTS
                       refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].ExternalColumns[WorkflowGID]"
                       dataType="guid"
                       name="WorkflowGID" />
-                    <externalMetadataColumn
-                      refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].ExternalColumns[Period]"
-                      dataType="dbDate"
-                      name="Period" />
                     <externalMetadataColumn
                       refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Output].ExternalColumns[_CreateDate]"
                       dataType="dbTimeStamp"
@@ -495,11 +482,6 @@ WHERE EXISTS
                       dataType="guid"
                       lineageId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Error Output].Columns[WorkflowGID]"
                       name="WorkflowGID" />
-                    <outputColumn
-                      refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Error Output].Columns[Period]"
-                      dataType="dbDate"
-                      lineageId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Error Output].Columns[Period]"
-                      name="Period" />
                     <outputColumn
                       refId="Package\LoadStageAgentActs\GetAgentActs.Outputs[OLE DB Source Error Output].Columns[_CreateDate]"
                       dataType="dbTimeStamp"
